@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1,
+  maximum-scale=5" />
+  <link rel="icon" href="devchallenges.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://devchallenges.io/" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+  <title>Devchallenges</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'PT Serif', serif;
+    }
+
+    .main {
+      padding-top: 20px;
+    }
+
+    .about-us__title {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      margin-top: 5px;
+      font-family: Poppins;
+    }
+
+    .team {
+      padding-top: 90px;
+    }
+
+    .team__name {
+      margin-top: 15px;
+      font-size: 18px;
+      font-family: Poppins;
+    }
+
+    .team__nember {
+      padding-right: 60px;
+      position: relative;
+    }
+
+    .team__nember:nth-child(2),
+    .team__nember:nth-child(5) {
+      margin-top: 100px;
+    }
+
+    .team__position {
+      position: absolute;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      white-space: nowrap;
+      margin: 0;
+      right: 30px;
+      top: 0;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    @media (max-width: 575px) {
+      .team {
+        padding-top: 30px;
+      }
+
+      .team__nember:nth-child(2),
+      .team__nember:nth-child(5) {
+        margin-top: 0;
+      }
+
+      .team__nember:nth-child(even) {
+        margin-top: 50px;
+      }
+
+      .team__nember {
+        padding-right: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .team__name {
+        margin-top: 10px;
+        font-size: 16px;
+      }
+
+      .team__position {
+        position: absolute;
+        right: 5px;
+        top: 0;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <div class="container">
+      <div class="header">
+        <div class="row">
+          <div class="col-md-6">
+            <h1>The creative crew</h1>
+          </div>
+          <div class="col-md-6">
+            <div class="about-us">
+              <h5 class="about-us__title">Who we are</h5>
+              <p class="about-us__des">
+                We are team of creatively diverse. driven. innovative individuals working in various locations from the
+                world.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team">
+        <div class="row">
+          <div class="col-md-4 col-6 team__nember">
+            <div>
+              <img src="./images/photo1.png" alt="nember 1" class="img-fluid team__avatar" />
+              <h4 class="team__name">Bill Mahoney</h4>
+              <h4 class="team__position">Product owner</h4>
+            </div>
+          </div>
+          <div class="col-md-4 col-6 team__nember">
+            <div>
+              <img src="./images/photo2.png" alt="nember 1" class="img-fluid team__avatar" />
+              <h4 class="team__name">Saba Cabrera</h4>
+              <h4 class="team__position">Art director</h4>
+            </div>
+          </div>
+          <div class="col-md-4 col-6 team__nember">
+            <div>
+              <img src="./images/photo3.png" alt="nember 1" class="img-fluid team__avatar" />
+              <h4 class="team__name">Shae Le</h4>
+              <h4 class="team__position">Tech Lead</h4>
+            </div>
+          </div>
+          <div class="col-md-4 col-6 team__nember">
+            <div>
+              <img src="./images/photo4.png" alt="nember 1" class="img-fluid team__avatar" />
+              <h4 class="team__name">Skylah Lus</h4>
+              <h4 class="team__position">UX Designer</h4>
+            </div>
+          </div>
+          <div class="col-md-4 col-6 team__nember">
+            <div>
+              <img src="./images/photo5.png" alt="nember 1" class="img-fluid team__avatar" />
+              <h4 class="team__name">Griff Richards</h4>
+              <h4 class="team__position">Developer</h4>
+            </div>
+          </div>
+          <div class="col-md-4 col-6 team__nember">
+            <div>
+              <img src="./images/photo6.png" alt="nember 1" class="img-fluid team__avatar" />
+              <h4 class="team__name">Stan John</h4>
+              <h4 class="team__position">Deverloper</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>
