@@ -12,6 +12,23 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --backg: white;
+      --text: black;
+    }
+
+    body {
+      background: var(--backg);
+      color: var(--text);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --backg: #292929;
+        --text: white;
+      }
+    }
+
     body {
       font-family: 'PT Serif', serif;
     }
@@ -60,6 +77,18 @@
       font-size: 14px;
     }
 
+    .home-title {
+      display: flex;
+      align-items: center;
+    }
+
+    .icon-mode {
+      height: 25px;
+      display: inline-block;
+      margin-left: 15px;
+      cursor: pointer;
+    }
+
     @media (max-width: 575px) {
       .team {
         padding-top: 30px;
@@ -101,7 +130,14 @@
       <div class="header">
         <div class="row">
           <div class="col-md-6">
-            <h1>The creative crew</h1>
+            <div class="home-title">
+              <h1>The creative crew</h1>
+              <svg class="icon-mode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+              </svg>
+            </div>
           </div>
           <div class="col-md-6">
             <div class="about-us">
@@ -162,6 +198,10 @@
         </div>
       </div>
     </div>
+  </div>
+  <script>
+
+  </script>
 </body>
 
 </html>
