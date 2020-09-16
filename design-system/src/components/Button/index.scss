@@ -1,0 +1,41 @@
+@import '../../styles/index.scss';
+
+$btn-p-x: spacing(2);
+$btn-p-y: spacing(1.5);
+$btn-default-round: spacing(0.75);
+
+$button-sizes: (
+  'lg': spacing(1.5) spacing(2.5),
+  'md': spacing(1) spacing(2),
+  'sm': spacing(0.75) spacing(1.5),
+);
+
+.sp-button {
+  padding: $btn-p-y $btn-p-x;
+  border: 1px solid;
+  border-radius: $btn-default-round;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+  transition: .3s background-color, .3s border-color; 
+  cursor: pointer;
+  &:focus,
+  &:hover {
+    outline: none;
+  }
+}
+
+@each $color, $value in $button-theme {
+  .sp-button--#{$color} {
+    @include button-variant(map-get($value, 'color'), map-get($value, 'text'));
+  }
+}
+
+.sp-button--disableShadow {
+  box-shadow: none;
+}
+
+// size
+@each $size, $value in $button-sizes {
+  .sp-button--s-#{$size} {
+    padding: $value;
+  }
+}

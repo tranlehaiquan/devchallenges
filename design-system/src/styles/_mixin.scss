@@ -1,0 +1,64 @@
+@mixin button-color-contain($color) {
+  background-color: $color;
+  border-color: $color;
+}
+
+@mixin button-variant($color, $text) {
+  @include button-color-contain($color);
+  color: color-yiq($color);
+
+  &:hover {
+    @include button-color-contain(lighten($color, $amount: 5));
+  }
+
+  &:focus {
+    @include button-color-contain(darken($color, $amount: 5));
+  }
+
+  &.sp-button--disabled {
+    background-color: (transparentize($color, 0.4));
+    color: transparentize(color-yiq(transparentize($color, 0.9)), 0.8);
+    box-shadow: none;
+  }
+
+  &.sp-button--outline {
+    color: $text;
+    border-color: $color;
+    background-color: transparent;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      background-color: transparentize($color, 0.9);
+    }
+
+    &.sp-button--disabled {
+      color: transparentize($color, $amount: 0.3);
+      @include button-color-contain(transparentize($color, 0.9));
+
+      &:hover,
+      &:focus {
+        @include button-color-contain(transparentize($color, 0.9));
+      }
+    }
+  }
+
+  &.sp-button--text {
+    color: $text;
+    @include button-color-contain(transparent);
+    box-shadow: none;
+
+    &:hover {
+      background-color: transparentize($color, 0.9);
+    }
+
+    &:focus {
+      background-color: transparentize($color, 0.8);
+    }
+
+    &.sp-button--disabled {
+      color: transparentize($color, 0.3);
+      @include button-color-contain(transparent);
+    }
+  }
+}
