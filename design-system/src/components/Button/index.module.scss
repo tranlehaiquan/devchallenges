@@ -19,7 +19,7 @@ $button-sizes: (
   ),
 );
 
-.sp-button {
+.button {
   padding: $btn-p-y $btn-p-x;
   border: 1px solid;
   border-radius: $btn-default-round;
@@ -34,27 +34,27 @@ $button-sizes: (
   }
 }
 
-.sp-button__icon--start {
+.button-icon-start {
   padding-right: $btn-p-y / 2;
 }
 
-.sp-button__icon--end {
+.button-icon-end {
   padding-left: $btn-p-y / 2;
 }
 
 @each $color, $value in $button-theme {
-  .sp-button--#{$color} {
+  .button--#{$color} {
     @include button-variant(map-get($value, 'color'), map-get($value, 'text'));
   }
 }
 
-.sp-button--disableShadow {
+.button--disableShadow {
   box-shadow: none;
 }
 
 // size
 @each $size, $value in $button-sizes {
-  .sp-button--s-#{$size} {
+  .button--s-#{$size} {
     padding: map-get($value, 'y') map-get($value, 'x');
   }
 }

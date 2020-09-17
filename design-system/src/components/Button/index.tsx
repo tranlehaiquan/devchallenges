@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import './index.scss';
+import styles from './index.module.scss';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   /**
@@ -43,19 +43,27 @@ export const Button: React.FC<ButtonProps> = ({
   ...restProps
 }) => {
   const btnClassnames = clsx(
-    'sp-button',
-    color && `sp-button--${color}`,
-    variant && `sp-button--${variant}`,
-    disableShadow && 'sp-button--disableShadow',
-    disabled && 'sp-button--disabled',
-    size && `sp-button--s-${size}`
+    styles['button'],
+    color && styles[`button--${color}`],
+    variant && styles[`button--${variant}`],
+    disableShadow && styles['button--disableShadow'],
+    disabled && styles['button--disabled'],
+    size && styles[`button--s-${size}`]
   );
 
   return (
     <button disabled={disabled} className={btnClassnames} {...restProps}>
-      {startIcon && <span className="material-icons sp-button__icon--start">{startIcon}</span>}
+      {startIcon && (
+        <span className={clsx(styles['button-icon-start'], 'material-icons')}>
+          {startIcon}
+        </span>
+      )}
       {children}
-      {endIcon && <span className="material-icons sp-button__icon--end">{endIcon}</span>}
+      {endIcon && (
+        <span className={clsx(styles['button-icon-end'], 'material-icons')}>
+          {endIcon}
+        </span>
+      )}
     </button>
   );
 };
