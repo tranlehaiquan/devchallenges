@@ -34,3 +34,15 @@ Info.args = {
   color: 'danger',
   children: 'Danger button'
 };
+
+export const ButtonIconStart = Template.bind({});
+ButtonIconStart.args = {
+  startIcon: 'account_circle',
+  children: 'Button icon'
+};
+
+export const ButtonIconEnd = Template.bind({});
+ButtonIconEnd.args = {
+  endIcon: 'bookmark_border',
+  children: 'Button icon'
+};

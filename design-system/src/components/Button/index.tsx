@@ -27,6 +27,8 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
    * Button size
    */
   size: 'sm' | 'md' | 'lg';
+  startIcon?: string;
+  endIcon?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -36,9 +38,10 @@ export const Button: React.FC<ButtonProps> = ({
   disableShadow = false,
   variant,
   size = 'md',
+  startIcon,
+  endIcon,
   ...restProps
 }) => {
-
   const btnClassnames = clsx(
     'sp-button',
     color && `sp-button--${color}`,
@@ -50,7 +53,9 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button disabled={disabled} className={btnClassnames} {...restProps}>
+      {startIcon && <span className="material-icons sp-button__icon--start">{startIcon}</span>}
       {children}
+      {endIcon && <span className="material-icons sp-button__icon--end">{endIcon}</span>}
     </button>
   );
 };

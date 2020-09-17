@@ -5,9 +5,18 @@ $btn-p-y: spacing(1.5);
 $btn-default-round: spacing(0.75);
 
 $button-sizes: (
-  'lg': spacing(1.5) spacing(2.5),
-  'md': spacing(1) spacing(2),
-  'sm': spacing(0.75) spacing(1.5),
+  'lg': (
+    x: spacing(2.5),
+    y: spacing(1.5)
+  ),
+  'md': (
+    x: spacing(1.75),
+    y: spacing(1)
+  ),
+  'sm': (
+    x: spacing(1.5),
+    y: spacing(0.75)
+  ),
 );
 
 .sp-button {
@@ -15,12 +24,22 @@ $button-sizes: (
   border: 1px solid;
   border-radius: $btn-default-round;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
-  transition: .3s background-color, .3s border-color; 
+  transition: .3s background-color, .3s border-color;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
   &:focus,
   &:hover {
     outline: none;
   }
+}
+
+.sp-button__icon--start {
+  padding-right: $btn-p-y / 2;
+}
+
+.sp-button__icon--end {
+  padding-left: $btn-p-y / 2;
 }
 
 @each $color, $value in $button-theme {
@@ -36,6 +55,6 @@ $button-sizes: (
 // size
 @each $size, $value in $button-sizes {
   .sp-button--s-#{$size} {
-    padding: $value;
+    padding: map-get($value, 'y') map-get($value, 'x');
   }
 }
