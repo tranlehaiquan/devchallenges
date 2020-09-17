@@ -1,3 +1,26 @@
+@import '../../styles/index.scss';
+
+$textfield-helper-color: $gray-400;
+$textfield-border-color: $gray-400;
+$textfield-label-color: $black;
+
+:root {
+  --textfield-helper-color: #{$textfield-helper-color};
+  --textfield-border-color: #{$textfield-border-color};
+  --textfield-label-color: #{$textfield-label-color};
+}
+
+$textfield-sizes: (
+  'md': (
+    x: spacing(1.25),
+    y: spacing(1.25)
+  ),
+  'sm': (
+    x: spacing(0.75),
+    y: spacing(0.75)
+  ),
+);
+
 .textField {
   max-width: 250px;
   display: inline-block;
@@ -6,4 +29,62 @@
 .textFieldFullWidth {
   display: block;
   max-width: initial;
+}
+
+.textFieldLabel {
+  font-size: 12px;
+  margin-bottom: spacing(0.5);
+  display: block;
+  color: var(--textfield-label-color);
+}
+
+.textFieldHelper {
+  font-size: 12px;
+  color: var(--textfield-helper-color);
+  display: block;
+  margin-top: spacing(0.5);
+}
+
+.textFieldInput {
+  display: block;
+  width: 100%;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.inputWrapper {
+  border: 1px solid var(--textfield-border-color);
+  border-radius: spacing(0.5);
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  &:hover {
+    --textfield-border-color: #{$gray-500};
+  }
+}
+
+.textFieldFocus {
+  --textfield-label-color: #{$primary};
+  .inputWrapper {
+    --textfield-border-color: #{$primary};
+  }
+}
+
+@each $size, $value in $textfield-sizes {
+  .textField-#{$size} {
+    .inputWrapper {
+      padding: map-get($value, 'y') map-get($value, 'x');
+    }
+  }
+}
+
+.textFieldError {
+  --textfield-helper-color: #{$danger};
+  --textfield-label-color: #{$danger};
+  .inputWrapper {
+    --textfield-border-color: #{$danger};
+  }
 }

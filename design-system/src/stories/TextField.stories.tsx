@@ -13,4 +13,8 @@ export default {
 const Template: Story<TextFieldProps> = (args) => <TextField {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  label: 'This is label',
+  helperMessage: 'Error occurs',
+  error: false,
+};

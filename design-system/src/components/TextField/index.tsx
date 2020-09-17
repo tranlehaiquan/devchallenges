@@ -1,17 +1,21 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 import cls from 'clsx';
 import Icon from '../Icon';
 
-import styles from './index.module.scss';
+import classes from './index.module.scss';
 
 export interface TextFieldProps extends HTMLAttributes<HTMLInputElement> {
   helperMessage?: string;
   error: boolean;
   startIcon?: string;
   endIcon?: string;
-  size: 'sm' | 'md' | 'lg';
+  size: 'sm' | 'md';
   fullWidth: boolean;
   label?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string | number;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export const TextField: React.FC<TextFieldProps> = ({
@@ -22,21 +26,54 @@ export const TextField: React.FC<TextFieldProps> = ({
   size = 'md',
   fullWidth = false,
   label = '',
+  onChange,
+  onBlur,
+  onFocus,
+  value,
 }) => {
+  const [isFocus, setIsFocus] = useState<boolean>(false);
+
   const rootClass = cls(
-    styles.textField,
-    fullWidth && styles.textFieldFullWidth
+    classes.textField,
+    classes[`textField-${size}`],
+    fullWidth && classes.textFieldFullWidth,
+    error && classes.textFieldError,
+    isFocus && classes.textFieldFocus
   );
+
+  const inputProps = {
+    ...(value && { value }),
+    ...(onChange && { onChange }),
+  };
+
+  const handleInputOnFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    setIsFocus(true);
+    onFocus && onFocus(event);
+  };
+
+  const handleInputOnBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    setIsFocus(false);
+    onBlur && onBlur(event);
+  };
 
   return (
     <div className={rootClass}>
-      {label && <label>{label}</label>}
-      <div>
+      {label && <label className={classes.textFieldLabel}>{label}</label>}
+      <label
+        className={classes.inputWrapper}
+      >
         {startIcon && <Icon name={startIcon} />}
-        <input />
+        <input
+          className={classes.textFieldInput}
+          {...inputProps}
+          onFocus={handleInputOnFocus}
+          onBlur={handleInputOnBlur}
+        />
         {endIcon && <Icon name={endIcon} />}
-      </div>
-      {helperMessage && <span>{helperMessage}</span>}
+      </label>
+      {helperMessage && (
+        <span className={classes.textFieldHelper}>{helperMessage}</span>
+      )}
     </div>
   );
 };
