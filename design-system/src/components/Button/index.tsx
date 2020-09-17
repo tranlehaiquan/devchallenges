@@ -1,5 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
+import Icon from '../Icon';
+
 import styles from './index.module.scss';
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -54,16 +56,10 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button disabled={disabled} className={btnClassnames} {...restProps}>
       {startIcon && (
-        <span className={clsx(styles['button-icon-start'], 'material-icons')}>
-          {startIcon}
-        </span>
+        <Icon name={startIcon} className={styles['button-icon-start']} />
       )}
       {children}
-      {endIcon && (
-        <span className={clsx(styles['button-icon-end'], 'material-icons')}>
-          {endIcon}
-        </span>
-      )}
+      {endIcon && <Icon name={endIcon} className={styles['button-icon-end']} />}
     </button>
   );
 };
