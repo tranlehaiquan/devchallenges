@@ -5,17 +5,45 @@ import Icon from '../Icon';
 import classes from './index.module.scss';
 
 export interface TextFieldProps extends HTMLAttributes<HTMLInputElement> {
+  /**
+   * Helper message, will be error when error be true
+   */
   helperMessage?: string;
+  /**
+   * Is error or not
+   */
   error: boolean;
+  /**
+   * Start icon (material icon)
+   */
   startIcon?: string;
+  /**
+   * End icon (material icon)
+   */
   endIcon?: string;
+  /**
+   * Textfield size
+   */
   size: 'sm' | 'md';
+  /**
+   * Enable full width
+   */
   fullWidth: boolean;
+  /**
+   * Label for input
+   */
   label?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  /**
+   * Value of input
+   */
   value?: string | number;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  /**
+   * Default value
+   */
+  defaultValue?: string;
 }
 
 export const TextField: React.FC<TextFieldProps> = ({
@@ -30,6 +58,8 @@ export const TextField: React.FC<TextFieldProps> = ({
   onBlur,
   onFocus,
   value,
+  defaultValue = '',
+  ...restProps
 }) => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
@@ -44,6 +74,8 @@ export const TextField: React.FC<TextFieldProps> = ({
   const inputProps = {
     ...(value && { value }),
     ...(onChange && { onChange }),
+    defaultValue,
+    ...restProps,
   };
 
   const handleInputOnFocus = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -59,9 +91,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   return (
     <div className={rootClass}>
       {label && <label className={classes.textFieldLabel}>{label}</label>}
-      <label
-        className={classes.inputWrapper}
-      >
+      <label className={classes.inputWrapper}>
         {startIcon && <Icon name={startIcon} />}
         <input
           className={classes.textFieldInput}
