@@ -48,13 +48,13 @@ $button-sizes: (
   }
 }
 
-.button--disableShadow {
+.buttonDisableShadow {
   box-shadow: none;
 }
 
 // size
 @each $size, $value in $button-sizes {
-  .button--s-#{$size} {
+  .buttonSize#{$size} {
     padding: map-get($value, 'y') map-get($value, 'x');
   }
 }

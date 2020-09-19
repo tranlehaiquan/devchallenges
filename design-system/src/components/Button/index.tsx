@@ -16,7 +16,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   /**
    * Button variant
    */
-  variant?: 'outline' | 'text';
+  variant?: '' | 'outline' | 'text';
   /**
    * Disable button shadow
    */
@@ -31,6 +31,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
   startIcon?: string;
   endIcon?: string;
+  className?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -38,19 +39,21 @@ export const Button: React.FC<ButtonProps> = ({
   color = 'default',
   children,
   disableShadow = false,
-  variant,
+  variant = '',
   size = 'md',
   startIcon,
   endIcon,
+  className = '',
   ...restProps
 }) => {
   const btnClassnames = clsx(
     styles['button'],
     color && styles[`button--${color}`],
-    variant && styles[`button--${variant}`],
-    disableShadow && styles['button--disableShadow'],
-    disabled && styles['button--disabled'],
-    size && styles[`button--s-${size}`]
+    variant && styles[`button-${variant}`],
+    disableShadow && styles['buttonDisableShadow'],
+    disabled && styles['buttonDisabled'],
+    size && styles[`buttonSize${size}`],
+    className,
   );
 
   return (
