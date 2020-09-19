@@ -12,7 +12,7 @@ export interface TextFieldProps extends HTMLAttributes<HTMLInputElement> {
   /**
    * Is error or not
    */
-  error: boolean;
+  error?: boolean;
   /**
    * Start icon (material icon)
    */
@@ -24,11 +24,11 @@ export interface TextFieldProps extends HTMLAttributes<HTMLInputElement> {
   /**
    * Textfield size
    */
-  size: 'sm' | 'md';
+  size?: 'sm' | 'md';
   /**
    * Enable full width
    */
-  fullWidth: boolean;
+  fullWidth?: boolean;
   /**
    * Label for input
    */
@@ -44,6 +44,7 @@ export interface TextFieldProps extends HTMLAttributes<HTMLInputElement> {
    * Default value
    */
   defaultValue?: string;
+  disabled?: boolean,
 }
 
 export const TextField: React.FC<TextFieldProps> = ({
@@ -59,6 +60,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   onFocus,
   value,
   defaultValue = '',
+  disabled = false,
   ...restProps
 }) => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
@@ -68,7 +70,8 @@ export const TextField: React.FC<TextFieldProps> = ({
     classes[`textField-${size}`],
     fullWidth && classes.textFieldFullWidth,
     error && classes.textFieldError,
-    isFocus && classes.textFieldFocus
+    isFocus && classes.textFieldFocus,
+    disabled && classes.textFieldDisabled,
   );
 
   const inputProps = {

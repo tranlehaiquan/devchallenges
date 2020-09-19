@@ -53,3 +53,10 @@ StartIcon.args = {
   fullWidth: true,
   startIcon: 'bookmark_border',
 };
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  label: 'Full width input',
+  helperMessage: 'Helper message',
+  disabled: true,
+};

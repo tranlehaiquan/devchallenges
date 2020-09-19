@@ -8,11 +8,11 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   /**
    * Button disable
    */
-  disabled: boolean;
+  disabled?: boolean;
   /**
    * Button type
    */
-  color: 'default' | 'primary' | 'secondary' | 'danger';
+  color?: 'default' | 'primary' | 'secondary' | 'danger';
   /**
    * Button variant
    */
@@ -20,7 +20,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   /**
    * Disable button shadow
    */
-  disableShadow: boolean;
+  disableShadow?: boolean;
   /**
    * OnClick event
    */
@@ -28,7 +28,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   /**
    * Button size
    */
-  size: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
   startIcon?: string;
   endIcon?: string;
   className?: string;

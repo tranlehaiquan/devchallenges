@@ -3,11 +3,13 @@
 $textfield-helper-color: $gray-400;
 $textfield-border-color: $gray-400;
 $textfield-label-color: $black;
+$textfield-bg-color: $white;
 
 :root {
   --textfield-helper-color: #{$textfield-helper-color};
   --textfield-border-color: #{$textfield-border-color};
   --textfield-label-color: #{$textfield-label-color};
+  --textfield-bg-color: #{$textfield-bg-color};
 }
 
 $textfield-sizes: (
@@ -49,7 +51,7 @@ $textfield-sizes: (
   display: block;
   width: 100%;
   border: none;
-
+  background-color: transparent;
   &:focus {
     outline: none;
   }
@@ -61,6 +63,7 @@ $textfield-sizes: (
   display: flex;
   overflow: hidden;
   position: relative;
+  background-color: var(--textfield-bg-color);
   &:hover {
     --textfield-border-color: #{$gray-500};
   }
@@ -79,6 +82,11 @@ $textfield-sizes: (
       padding: map-get($value, 'y') map-get($value, 'x');
     }
   }
+}
+
+.textFieldDisabled {
+  --textfield-bg-color: #{$gray-300};
+  pointer-events: none;
 }
 
 .textFieldError {
