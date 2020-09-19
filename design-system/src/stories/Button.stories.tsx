@@ -17,20 +17,20 @@ Default.args = {
   children: 'Default button',
 };
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const PrimaryColor = Template.bind({});
+PrimaryColor.args = {
   color: 'primary',
   children: 'Primary button',
 };
 
-export const Second = Template.bind({});
-Second.args = {
+export const SecondColor = Template.bind({});
+SecondColor.args = {
   color: 'secondary',
   children: 'Secondary button'
 };
 
-export const Info = Template.bind({});
-Info.args = {
+export const DangerColor = Template.bind({});
+DangerColor.args = {
   color: 'danger',
   children: 'Danger button'
 };
