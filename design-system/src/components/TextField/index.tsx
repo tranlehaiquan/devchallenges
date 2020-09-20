@@ -4,7 +4,8 @@ import Icon from '../Icon';
 
 import classes from './index.module.scss';
 
-export interface TextFieldProps extends HTMLAttributes<HTMLInputElement> {
+export interface TextFieldProps
+  extends HTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   /**
    * Helper message, will be error when error be true
    */
@@ -33,18 +34,26 @@ export interface TextFieldProps extends HTMLAttributes<HTMLInputElement> {
    * Label for input
    */
   label?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   /**
    * Value of input
    */
   value?: string | number;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (
+    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  onFocus?: (
+    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   /**
    * Default value
    */
   defaultValue?: string;
-  disabled?: boolean,
+  disabled?: boolean;
+  multiline?: boolean;
+  rows?: number;
 }
 
 export const TextField: React.FC<TextFieldProps> = ({
@@ -61,6 +70,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   value,
   defaultValue = '',
   disabled = false,
+  multiline = false,
   ...restProps
 }) => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
@@ -71,7 +81,7 @@ export const TextField: React.FC<TextFieldProps> = ({
     fullWidth && classes.textFieldFullWidth,
     error && classes.textFieldError,
     isFocus && classes.textFieldFocus,
-    disabled && classes.textFieldDisabled,
+    disabled && classes.textFieldDisabled
   );
 
   const inputProps = {
@@ -81,12 +91,18 @@ export const TextField: React.FC<TextFieldProps> = ({
     ...restProps,
   };
 
-  const handleInputOnFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+  const InputText = multiline ? 'textarea' : 'input';
+
+  const handleInputOnFocus = (
+    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setIsFocus(true);
     onFocus && onFocus(event);
   };
 
-  const handleInputOnBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleInputOnBlur = (
+    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setIsFocus(false);
     onBlur && onBlur(event);
   };
@@ -96,7 +112,7 @@ export const TextField: React.FC<TextFieldProps> = ({
       {label && <label className={classes.textFieldLabel}>{label}</label>}
       <label className={classes.inputWrapper}>
         {startIcon && <Icon name={startIcon} />}
-        <input
+        <InputText
           className={classes.textFieldInput}
           {...inputProps}
           onFocus={handleInputOnFocus}
