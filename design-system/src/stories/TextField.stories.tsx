@@ -61,8 +61,8 @@ Disabled.args = {
   disabled: true,
 };
 
-export const TextFieldTextarear = Template.bind({});
-TextFieldTextarear.args = {
+export const Multiline = Template.bind({});
+Multiline.args = {
   label: 'Full width input',
   helperMessage: 'Helper message',
   multiline: true,

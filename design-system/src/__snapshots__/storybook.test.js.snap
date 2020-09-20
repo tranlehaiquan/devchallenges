@@ -2,7 +2,7 @@
 
 exports[`Storyshots Example/Button Button Icon End 1`] = `
 <button
-  className="button button--default button--s-md"
+  className="button button--default buttonSizemd"
 >
   Button icon
   <span
@@ -15,7 +15,7 @@ exports[`Storyshots Example/Button Button Icon End 1`] = `
 
 exports[`Storyshots Example/Button Button Icon Start 1`] = `
 <button
-  className="button button--default button--s-md"
+  className="button button--default buttonSizemd"
 >
   <span
     className="button-icon-start material-icons"
@@ -28,7 +28,7 @@ exports[`Storyshots Example/Button Button Icon Start 1`] = `
 
 exports[`Storyshots Example/Button Danger Color 1`] = `
 <button
-  className="button button--danger button--s-md"
+  className="button button--danger buttonSizemd"
 >
   Danger button
 </button>
@@ -36,7 +36,7 @@ exports[`Storyshots Example/Button Danger Color 1`] = `
 
 exports[`Storyshots Example/Button Default 1`] = `
 <button
-  className="button button--default button--s-md"
+  className="button button--default buttonSizemd"
 >
   Default button
 </button>
@@ -44,7 +44,7 @@ exports[`Storyshots Example/Button Default 1`] = `
 
 exports[`Storyshots Example/Button Primary Color 1`] = `
 <button
-  className="button button--primary button--s-md"
+  className="button button--primary buttonSizemd"
 >
   Primary button
 </button>
@@ -52,7 +52,7 @@ exports[`Storyshots Example/Button Primary Color 1`] = `
 
 exports[`Storyshots Example/Button Second Color 1`] = `
 <button
-  className="button button--secondary button--s-md"
+  className="button button--secondary buttonSizemd"
 >
   Secondary button
 </button>
@@ -116,6 +116,35 @@ exports[`Storyshots Example/TextField Default Value 1`] = `
 </div>
 `;
 
+exports[`Storyshots Example/TextField Disabled 1`] = `
+<div
+  className="textField textField-md textFieldDisabled"
+>
+  <label
+    className="textFieldLabel"
+  >
+    Full width input
+  </label>
+  <label
+    className="inputWrapper"
+  >
+    
+    <input
+      className="textFieldInput"
+      defaultValue=""
+      onBlur={[Function]}
+      onFocus={[Function]}
+    />
+    
+  </label>
+  <span
+    className="textFieldHelper"
+  >
+    Helper message
+  </span>
+</div>
+`;
+
 exports[`Storyshots Example/TextField Error Message 1`] = `
 <div
   className="textField textField-md textFieldError"
@@ -163,6 +192,36 @@ exports[`Storyshots Example/TextField Full Width 1`] = `
       defaultValue=""
       onBlur={[Function]}
       onFocus={[Function]}
+    />
+    
+  </label>
+  <span
+    className="textFieldHelper"
+  >
+    Helper message
+  </span>
+</div>
+`;
+
+exports[`Storyshots Example/TextField Multiline 1`] = `
+<div
+  className="textField textField-md"
+>
+  <label
+    className="textFieldLabel"
+  >
+    Full width input
+  </label>
+  <label
+    className="inputWrapper"
+  >
+    
+    <textarea
+      className="textFieldInput"
+      defaultValue=""
+      onBlur={[Function]}
+      onFocus={[Function]}
+      rows={3}
     />
     
   </label>
