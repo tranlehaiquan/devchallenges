@@ -19,10 +19,13 @@ const useStyles = makeStyles(({ spacing }) => ({
 }));
 
 export interface ListStayProps {
+  /**
+   * List stay
+   */
   stays: StayInterface[];
 }
 
-export const ListStay: React.FC<ListStayProps> = ({ stays }) => {
+export const ListStay: React.FC<ListStayProps> = ({ stays = [] }) => {
   const classes = useStyles();
 
   return (

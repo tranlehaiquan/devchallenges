@@ -54,8 +54,7 @@ const useStyles = makeStyle(({ spacing }) => ({
   rating: {},
 }));
 
-export const Stay: React.FC<StayProps> = props => {
-  const { title, photo, rating, superHost, type, className } = props;
+export const Stay: React.FC<StayProps> = ({ title, photo, rating, superHost, type, className = '' }) => {
   const classes = useStyles();
 
   return (

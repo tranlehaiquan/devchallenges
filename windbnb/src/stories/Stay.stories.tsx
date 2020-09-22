@@ -13,7 +13,6 @@ const Template: Story<StayProps>  = args => <Stay {...args} />;
 
 export const ItemStay = Template.bind({});
 ItemStay.args = {
-  id: '1',
   city: 'Helsinki',
   country: 'Finland',
   superHost: false,
