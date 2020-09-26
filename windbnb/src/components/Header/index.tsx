@@ -17,7 +17,7 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
 }));
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const classes = useStyles();
 
   return (

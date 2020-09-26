@@ -2,6 +2,7 @@ import React from 'react';
 import cls from 'clsx';
 import makeStyle from '@material-ui/core/styles/makeStyles';
 import Typo from '@material-ui/core/Typography';
+import Img from 'gatsby-image';
 
 import { Stay as StayModel } from '../../types';
 
@@ -54,12 +55,23 @@ const useStyles = makeStyle(({ spacing }) => ({
   rating: {},
 }));
 
-export const Stay: React.FC<StayProps> = ({ title, photo, rating, superHost, type, className = '' }) => {
+export const Stay: React.FC<StayProps> = ({
+  title,
+  rating,
+  superHost,
+  type,
+  className = '',
+  remoteImage,
+}) => {
   const classes = useStyles();
 
   return (
     <div className={cls(className, classes.root)}>
-      <img src={photo} alt={title} className={cls('img-fluid', classes.img)} />
+      <Img
+        fixed={remoteImage.childImageSharp.fixed}
+        className={cls('img-fluid', classes.img)}
+        alt={title}
+      />
       <div className={classes.info}>
         <div className={classes.infoName}>
           {superHost && (

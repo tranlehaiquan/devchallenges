@@ -9,4 +9,5 @@ export interface Stay {
   type: string;
   beds: number;
   photo: string;
+  remoteImage: any;
 }

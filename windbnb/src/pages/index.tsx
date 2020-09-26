@@ -1,37 +1,53 @@
-import React from "react";
-import { Link } from "gatsby";
+import React from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
+import { useSelector } from 'react-redux';
+
+import { Stay } from '../types';
 import ListStay from '../components/ListStay';
+import Layout from '../components/Layout';
+import SEO from '../components/seo';
 
-import Layout from "../components/Layout";
-import Image from "../components/image";
-import SEO from "../components/seo";
-
-const mockStay = {
-  city: 'Helsinki',
-  country: 'Finland',
-  superHost: false,
-  title: 'Stylist apartment in center of the city',
-  rating: 4.4,
-  maxGuests: 3,
-  type: 'Entire apartment apartment apartment apartment',
-  beds: 2,
-  photo:
-    'https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2255&q=80',
+type DataType = {
+  allStaysJson: {
+    nodes: Stay[];
+  };
 };
 
-const mockList = new Array(6).fill(undefined).map((item, index) => ({
-  id: index + '',
-  ...mockStay,
-  superHost: index === 3 && true,
-}));
+const IndexPage = () => {
+  const dataStore: any = useSelector((state) => state);
+  const data: DataType = useStaticQuery(graphql`
+    query {
+      allStaysJson {
+        nodes {
+          beds
+          type
+          title
+          superHost
+          rating
+          photo
+          maxGuests
+          id
+          country
+          city
+          remoteImage {
+            childImageSharp {
+              id
+              fixed(cropFocus: CENTER, height: 260, width: 400) {
+                ...GatsbyImageSharpFixed
+              }
+            }
+          }
+        }
+      }
+    }
+  `);
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <ListStay stays={mockList}/>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-);
+  return (
+    <Layout>{dataStore.count}
+      <SEO title="Home" />
+      <ListStay stays={data.allStaysJson.nodes} />
+    </Layout>
+  );
+};
 
 export default IndexPage;
