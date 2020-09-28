@@ -8,7 +8,7 @@ import { RootState } from 'store';
 import SearchPopup from '../SearchPopup';
 import { openSearch } from '../../store/layout/actions';
 
-const useStyles = makeStyles(({ spacing, palette }) => ({
+const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
   root: {
     backgroundColor: palette.background.paper,
     display: 'flex',
@@ -16,6 +16,10 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
     boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.1)',
     borderRadius: spacing(2),
     cursor: 'pointer',
+    [breakpoints.down('md')]: {
+      marginTop: spacing(2),
+      display: 'inline-flex',
+    },
   },
   iconSearch: {
     color: '#EB5757',
@@ -31,6 +35,9 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
     padding: spacing(2.2, 2),
     borderRight: `1px solid ${palette.grey[300]}`,
   },
+  text: {
+    whiteSpace: 'nowrap',
+  },
 }));
 
 const Search: React.FC = () => {
@@ -39,35 +46,6 @@ const Search: React.FC = () => {
   const guests = useSelector((state: RootState) => state.stays.guests);
   const totalGuests = guests.adults + guests.children;
   const dispatch = useDispatch();
-
-  // const data: DataQuery = useStaticQuery(graphql`
-  //   query {
-  //     allStaysJson(sort: { order: ASC, fields: city }) {
-  //       nodes {
-  //         city
-  //         country
-  //       }
-  //     }
-  //   }
-  // `);
-
-  // const locationList = data.allStaysJson.nodes.reduce<
-  //   { city: string; country: string; id: string }[]
-  // >((acc, curr) => {
-  //   if (acc.length === 0) {
-  //     acc.push({ ...curr, id: `${curr.country}_${curr.city}` });
-  //     return acc;
-  //   }
-
-  //   const lastItem = acc[acc.length - 1];
-  //   if (curr.city !== lastItem.city || curr.country !== lastItem.country) {
-  //     acc.push({ ...curr, id: `${curr.country}_${curr.city}` });
-  //     return acc;
-  //   }
-
-  //   return acc;
-  // }, []);
-
   const handleClick = () => {
     dispatch(openSearch());
   };
@@ -76,10 +54,10 @@ const Search: React.FC = () => {
     <>
       <div className={classes.root} onClick={handleClick}>
         <div className={classes.location}>
-          <Typo>{location || 'Add location'}</Typo>
+          <Typo className={classes.text}>{location || 'Add location'}</Typo>
         </div>
         <div className={classes.guests}>
-          <Typo>{totalGuests || 'Add guest'}</Typo>
+          <Typo className={classes.text}>{totalGuests || 'Add guest'}</Typo>
         </div>
         <div className={classes.iconSearch}>
           <SearchIcon />

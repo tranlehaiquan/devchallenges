@@ -26,6 +26,12 @@ const useStyles = makeStyles(({ spacing, breakpoints }) => ({
       display: 'block',
     },
   },
+  searchWrapper: {
+    [breakpoints.down('sm')]: {
+      display: 'flex',
+      justifyContent: 'center',
+    }
+  }
 }));
 
 export const Header: React.FC = () => {
@@ -41,7 +47,9 @@ export const Header: React.FC = () => {
             </Link>
           </Typo>
 
-          <Search />
+          <div className={classes.searchWrapper}>
+            <Search />
+          </div>
         </div>
       </Container>
     </header>

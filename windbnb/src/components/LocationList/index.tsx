@@ -10,6 +10,7 @@ const useStyles = makeStyles(({ spacing }) => ({
     display: 'flex',
     alignItems: 'center',
     marginBottom: spacing(4),
+    cursor: 'pointer',
   },
   icon: {
     marginRight: spacing(1.5),

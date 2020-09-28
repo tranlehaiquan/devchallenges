@@ -6,6 +6,9 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
 import SearchIcon from '@material-ui/icons/Search';
+import { Typography as Typo } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
 
 import {
   setGuests as setGuestsAction,
@@ -29,6 +32,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+    position: 'relative',
+    [theme.breakpoints.down('sm')]: {
+      paddingBottom: theme.spacing(4),
+    }
   },
   searchBox: {
     boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.1)',
@@ -39,6 +46,10 @@ const useStyles = makeStyles(theme => ({
   },
   inputFirst: {
     borderRight: '1px solid ' + theme.palette.grey[300],
+    [theme.breakpoints.down('sm')]: {
+      borderRight: 'none',
+      borderBottom: '1px solid ' + theme.palette.grey[300],
+    },
   },
   btnSearch: {
     display: 'inline-flex',
@@ -51,12 +62,29 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   listLocation: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
+    // paddingLeft: theme.spacing(2),
+    // paddingRight: theme.spacing(2),
   },
   control: {
     marginTop: theme.spacing(2),
   },
+  header: {
+    display: 'none',
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      paddingBottom: theme.spacing(2),
+    },
+  },
+  btnWrapper: {
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      bottom: 10,
+      left: 0,
+      width: '100%',
+      textAlign: 'center',
+    }
+  }
 }));
 
 const SearchPopup: React.FC = () => {
@@ -92,7 +120,7 @@ const SearchPopup: React.FC = () => {
   };
 
   const handleClickBackdrop = () => {
-    dispatch(closeSearch());
+    handleCloseSearch();
     setGuests(defautGuests);
     setLocation(defaultLocation);
   };
@@ -105,7 +133,7 @@ const SearchPopup: React.FC = () => {
   const handleBtnSearchClick = () => {
     dispatch(setGuestsAction(guests));
     dispatch(setLocationAction(location));
-    dispatch(closeSearch());
+    handleCloseSearch();
   };
 
   const setGuestToDefault = () => {
@@ -122,6 +150,10 @@ const SearchPopup: React.FC = () => {
     dispatch(setLocationAction(''));
   };
 
+  const handleCloseSearch = () => {
+    dispatch(closeSearch());
+  };
+
   return (
     <Backdrop
       open={isSearchOpen}
@@ -130,10 +162,18 @@ const SearchPopup: React.FC = () => {
     >
       <div className={classes.root} onClick={handleContainerClick}>
         <Container>
+          <div className={classes.header}>
+            <Typo>Edit your search</Typo>
+
+            <IconButton onClick={handleCloseSearch} size="small">
+              <CloseIcon />
+            </IconButton>
+          </div>
+
           <Grid container spacing={2}>
             <Grid item md={10}>
               <Grid container className={classes.searchBox}>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                   <TextField
                     fullWidth
                     label="LOCATION"
@@ -145,7 +185,7 @@ const SearchPopup: React.FC = () => {
                     showReset={location !== ''}
                   />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                   <TextField
                     fullWidth
                     label="GUESTS"
@@ -160,26 +200,28 @@ const SearchPopup: React.FC = () => {
               </Grid>
             </Grid>
             <Grid item md={2} className={classes.searchWrapper}>
-              <Button
-                startIcon={<SearchIcon />}
-                variant="contained"
-                className={classes.btnSearch}
-                onClick={handleBtnSearchClick}
-              >
-                Search
-              </Button>
+              <div className={classes.btnWrapper}>
+                <Button
+                  startIcon={<SearchIcon />}
+                  variant="contained"
+                  className={classes.btnSearch}
+                  onClick={handleBtnSearchClick}
+                >
+                  Search
+                </Button>
+              </div>
             </Grid>
           </Grid>
 
           <Grid container spacing={2} className={classes.control}>
-            <Grid item md={5}>
+            <Grid item md={5} xs={6}>
               <LocationList
                 locations={locationList}
                 className={classes.listLocation}
                 onChange={handleLocationClick}
               />
             </Grid>
-            <Grid item md={5}>
+            <Grid item md={5} xs={6}>
               <GuestControl guests={guests} onChange={setGuests} />
             </Grid>
           </Grid>
