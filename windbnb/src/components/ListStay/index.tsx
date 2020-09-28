@@ -7,14 +7,17 @@ import Stay from '../Stay';
 import { Stay as StayInterface } from '../../types';
 
 const useStyles = makeStyles(({ spacing }) => ({
-  root: {
-    
-  },
+  root: {},
   head: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: spacing(2),
+  },
+  message: {
+    textAlign: 'center',
+    paddingTop: spacing(2),
+    paddingBottom: spacing(2),
   }
 }));
 
@@ -34,6 +37,7 @@ export const ListStay: React.FC<ListStayProps> = ({ stays = [] }) => {
         <Typo variant="h5">Stays in Finland</Typo>
         <Typo>{stays.length} stays</Typo>
       </div>
+      {!stays.length && <Typo className={classes.message}>No stay match!</Typo>}
       <Grid container spacing={2}>
         {stays.map(stay => (
           <Grid item sm={4} xs={12} key={stay.id}>

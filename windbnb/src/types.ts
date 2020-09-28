@@ -11,3 +11,14 @@ export interface Stay {
   photo: string;
   remoteImage: any;
 }
+
+export interface Location {
+  id: string;
+  city: string;
+  country: string;
+}
+
+export type Guests = {
+  adults: number;
+  children: number;
+};

@@ -6,6 +6,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@types/react-redux": "^7.1.9",
     "babel-preset-react-app": "^9.1.2",
     "clsx": "^1.1.1",
@@ -17,6 +18,7 @@
     "gatsby-plugin-react-helmet": "^3.3.11",
     "gatsby-plugin-sharp": "^2.6.36",
     "gatsby-source-filesystem": "^2.3.30",
+    "gatsby-theme-material-ui": "^1.0.13",
     "gatsby-transformer-json": "^2.4.12",
     "gatsby-transformer-sharp": "^2.5.15",
     "prop-types": "^15.7.2",

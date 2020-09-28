@@ -3,6 +3,7 @@ import cls from 'clsx';
 import makeStyle from '@material-ui/core/styles/makeStyles';
 import Typo from '@material-ui/core/Typography';
 import Img from 'gatsby-image';
+import StarIcon from '@material-ui/icons/Star';
 
 import { Stay as StayModel } from '../../types';
 
@@ -10,11 +11,11 @@ export interface StayProps extends StayModel {
   className?: string;
 }
 
-const useStyles = makeStyle(({ spacing }) => ({
+const useStyles = makeStyle(({ spacing, palette }) => ({
   root: {},
   img: {
     borderRadius: spacing(2),
-    marginBottom: spacing(2),
+    display: 'block',
   },
   info: {
     display: 'flex',
@@ -53,6 +54,10 @@ const useStyles = makeStyle(({ spacing }) => ({
     overflow: 'hidden',
   },
   rating: {},
+  iconStar: {
+    color: palette.brand.main,
+    fontSize: 20,
+  }
 }));
 
 export const Stay: React.FC<StayProps> = ({
@@ -81,7 +86,7 @@ export const Stay: React.FC<StayProps> = ({
           )}
           <Typo className={classes.type}>{type}</Typo>
         </div>
-        <Typo className={classes.rating}>{rating}</Typo>
+        <StarIcon className={classes.iconStar} /> <Typo className={classes.rating}>{rating}</Typo>
       </div>
       <Typo className={classes.title}>{title}</Typo>
     </div>

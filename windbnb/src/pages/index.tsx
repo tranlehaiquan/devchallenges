@@ -1,51 +1,27 @@
 import React from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
 import { useSelector } from 'react-redux';
 
-import { Stay } from '../types';
+import { RootState } from '../store';
+import useStays from '../utils/useStays';
 import ListStay from '../components/ListStay';
 import Layout from '../components/Layout';
 import SEO from '../components/seo';
 
-type DataType = {
-  allStaysJson: {
-    nodes: Stay[];
-  };
-};
-
 const IndexPage = () => {
-  const dataStore: any = useSelector((state) => state);
-  const data: DataType = useStaticQuery(graphql`
-    query {
-      allStaysJson {
-        nodes {
-          beds
-          type
-          title
-          superHost
-          rating
-          photo
-          maxGuests
-          id
-          country
-          city
-          remoteImage {
-            childImageSharp {
-              id
-              fixed(cropFocus: CENTER, height: 260, width: 400) {
-                ...GatsbyImageSharpFixed
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
+  const stays = useStays();
+  const location = useSelector((state: RootState) => state.stays.location);
+  const guests = useSelector((state: RootState) => state.stays.guests);
+
+  const filtered = stays.filter(stay => {
+    if(location && location !== `${stay.city}, ${stay.country}`) return false;
+    if(guests.children + guests.adults > stay.maxGuests) return false;
+    return true;
+  });
 
   return (
-    <Layout>{dataStore.count}
+    <Layout>
       <SEO title="Home" />
-      <ListStay stays={data.allStaysJson.nodes} />
+      <ListStay stays={filtered} />
     </Layout>
   );
 };
