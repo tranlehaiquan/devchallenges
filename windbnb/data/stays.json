@@ -166,5 +166,41 @@
     "type": "Entire apartment",
     "beds": 3,
     "photo": "https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1275&q=80"
+  },
+  {
+    "id": 15,
+    "city": "Sai Gon",
+    "country": "Viet Nam",
+    "superHost": true,
+    "title": "Landmark 81",
+    "rating": 5,
+    "maxGuests": 10,
+    "type": "Entire apartment",
+    "beds": 10,
+    "photo": "https://images.unsplash.com/photo-1592313794763-81e0aa64d157?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=736&q=80"
+  },
+  {
+    "id": 16,
+    "city": "Hoi An",
+    "country": "Viet Nam",
+    "superHost": true,
+    "title": "Pho co Hoi An",
+    "rating": 5,
+    "maxGuests": 10,
+    "type": "Motel",
+    "beds": 10,
+    "photo": "https://images.unsplash.com/flagged/photo-1549874613-8ea0adee1a82?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1388&q=80"
+  },
+  {
+    "id": 17,
+    "city": "Da Nang",
+    "country": "Viet Nam",
+    "superHost": true,
+    "title": "Bana Hill",
+    "rating": 5,
+    "maxGuests": 10,
+    "type": "Chua",
+    "beds": 10,
+    "photo": "https://images.unsplash.com/photo-1498747468843-5ec2ad31cb89?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
   }
 ]
