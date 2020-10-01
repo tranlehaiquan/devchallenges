@@ -1,6 +1,6 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import Button from '@material-ui/core/Button';
+import { Button, Typography as Typo } from '@material-ui/core';
 
 import JobItem from '../JobItem';
 import JobItemSkeleton from '../JobItem/Skeleton';
@@ -10,6 +10,9 @@ const useStyles = makeStyles(({ spacing }) => ({
   root: {},
   jobItem: {
     marginBottom: spacing(2),
+  },
+  notFound: {
+    textAlign: 'center',
   },
 }));
 
@@ -27,6 +30,12 @@ const ListJob: React.FC<ListJobProps> = ({
   onLoadMore,
 }) => {
   const classes = useStyles();
+
+  if (jobs.length === 0 && !loading) {
+    return (
+      <Typo className={classes.notFound}>Sorry, no jobs fit your filter!</Typo>
+    );
+  }
 
   return (
     <>

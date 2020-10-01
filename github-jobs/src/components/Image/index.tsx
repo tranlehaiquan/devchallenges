@@ -20,6 +20,8 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: spacing(0.5),
+    paddingTop: spacing(1),
+    paddingBottom: spacing(1),
   },
 }));
 

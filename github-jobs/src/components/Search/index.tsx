@@ -9,9 +9,12 @@ import { setDescription } from '../../store/filters/actions';
 import Container from '../Container';
 import luggageIcon from '../../images/luggage.svg';
 
-const useStyles = makeStyles(({ spacing }) => ({
+const useStyles = makeStyles(({ spacing, breakpoints }) => ({
   root: {
     position: 'relative',
+    [breakpoints.down('md')]: {
+      padding: 0,
+    },
   },
   img: {},
   search: {
@@ -26,16 +29,25 @@ const useStyles = makeStyles(({ spacing }) => ({
     borderRadius: spacing(0.5),
     left: '50%',
     transform: 'translate(-50%, -50%)',
+    [breakpoints.down('sm')]: {
+      width: 'calc(100% - 30px)',
+    },
   },
   icon: {
     maxWidth: 25,
     marginRight: spacing(1),
     marginLeft: spacing(0.5),
+    [breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   bgImg: {
     maxWidth: '100%',
     display: 'block',
     borderRadius: spacing(1),
+    [breakpoints.down('sm')]: {
+      borderRadius: spacing(0),
+    },
   },
 }));
 
@@ -62,6 +74,12 @@ const Search = () => {
     setSearch(event.target.value);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleClickSearch();
+    }
+  };
+
   const classes = useStyles();
   return (
     <Container className={classes.root}>
@@ -76,6 +94,7 @@ const Search = () => {
           value={search}
           startAdornment={<img src={luggageIcon} className={classes.icon} />}
           onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
         />
         <Button variant="contained" color="primary" onClick={handleClickSearch}>
           Search

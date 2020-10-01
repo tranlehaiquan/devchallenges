@@ -3,9 +3,11 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typo from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import PublicIcon from '@material-ui/icons/Public';
-import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
+import { Link } from 'gatsby';
 
+import JobType from '../JobType';
+import DistanceToNow from '../DistanceToNow';
+import HireLocation from '../HireLocation';
 import Image from '../Image';
 import { Job } from '../../types/job';
 
@@ -16,10 +18,12 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)',
     backgroundColor: palette.common.white,
     padding: spacing(1.75),
+    [breakpoints.down('xs')]: {
+      display: 'block',
+    },
   },
   logo: {
     width: 120,
-    maxHeight: 100,
     display: 'flex',
     alignItems: 'center',
     marginRight: spacing(1.75),
@@ -27,8 +31,14 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
       display: 'block',
       maxWidth: '100%',
     },
-    [breakpoints.down('sm')]: {
-      width: 50,
+    [breakpoints.down('xs')]: {
+      width: '100%',
+      justifyContent: 'flex-start',
+      marginBottom: spacing(1),
+      '& img': {
+        display: 'block',
+        width: '100%',
+      },
     },
   },
   jobType: {
@@ -70,6 +80,12 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
       marginRight: spacing(2),
     },
   },
+  title: {
+    textDecoration: 'none',
+  },
+  distanceToNow: {
+    marginLeft: spacing(1),
+  }
 }));
 
 interface JobItemProps extends Job {
@@ -77,6 +93,7 @@ interface JobItemProps extends Job {
 }
 
 const JobItem: React.FC<JobItemProps> = ({
+  id,
   className,
   company_logo,
   company,
@@ -94,19 +111,19 @@ const JobItem: React.FC<JobItemProps> = ({
       </div>
       <div className={classes.jobDes}>
         <Typo variant="subtitle2">{company}</Typo>
-        <Typo variant="h6">{title}</Typo>
+
+        <Typo variant="h6">
+          <Link className={classes.title} to={`/position/${id}`}>
+            {title}
+          </Link>
+        </Typo>
+
         <div className={classes.jobInfos}>
-          <Typo variant="subtitle2" className={classes.jobType}>
-            {type}
-          </Typo>
+          <JobType>{type}</JobType>
 
           <div className={classes.durationAndLocation}>
-            <Typo variant="subtitle2" className={classes.jobTime}>
-              <QueryBuilderIcon /> {formatDistanceToNow(new Date(created_at))}
-            </Typo>
-            <Typo variant="subtitle2" className={classes.jobTime}>
-              <PublicIcon /> {location}
-            </Typo>
+            <HireLocation location={location} />
+            <DistanceToNow time={formatDistanceToNow(new Date(created_at))} className={classes.distanceToNow} />
           </div>
         </div>
       </div>

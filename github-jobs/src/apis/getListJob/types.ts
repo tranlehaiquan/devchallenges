@@ -12,3 +12,4 @@ export type ListJobQuery = {
 }
 
 export type ResponseListJob = ListJob;
+export type ResponseJob = Job;

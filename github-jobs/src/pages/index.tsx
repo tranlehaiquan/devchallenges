@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
+import toPairs from 'lodash/toPairs';
 
-import { Job } from '../types/job';
+import { setJobs, addJobs } from '../store/jobs/actions';
 import { getListJob } from '../apis/getListJob';
 import JobFilter from '../components/JobsFilter';
 import ListJob from '../components/ListJob';
 import Container from '../components/Container';
 import Layout from '../components/layout';
 import Search from '../components/Search';
+import Seo from '../components/seo';
 
 const useStyles = makeStyles(({ spacing }) => ({
   main: {
@@ -19,14 +21,16 @@ const useStyles = makeStyles(({ spacing }) => ({
 }));
 
 const IndexPage = () => {
+  const dispatch = useDispatch();
   const [haveMore, setHaveMore] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const classes = useStyles();
-  const [jobs, setJobs] = useState<Job[]>([]);
   const [page, setPage] = useState<number>(1);
   const description = useSelector(
     (state: RootState) => state.filters.description
   );
+  const jobs = useSelector((state: RootState) => state.jobs.jobs);
+  const listJob = toPairs(jobs).map(([id, job]) => job);
   const location = useSelector((state: RootState) => state.filters.location);
   const fullTime = useSelector((state: RootState) => state.filters.fullTime);
 
@@ -39,7 +43,7 @@ const IndexPage = () => {
         location,
         description,
       });
-      setJobs(jobsRs);
+      dispatch(setJobs(jobsRs));
       setHaveMore(jobsRs.length === 50);
       setLoading(false);
     })();
@@ -59,7 +63,7 @@ const IndexPage = () => {
           description,
           page,
         });
-        setJobs([...jobs, ...jobsRs]);
+        dispatch(addJobs(jobsRs));
         setHaveMore(jobsRs.length === 50);
         setLoading(false);
         document.documentElement.scrollTop = cacheScroll;
@@ -73,6 +77,7 @@ const IndexPage = () => {
 
   return (
     <Layout>
+      <Seo title="Github jobs" />
       <Search />
 
       <Container className={classes.main}>
@@ -83,7 +88,7 @@ const IndexPage = () => {
           <Grid item md={9} xs={12}>
             <ListJob
               haveMore={haveMore}
-              jobs={jobs}
+              jobs={listJob}
               loading={loading}
               onLoadMore={handleLoadMore}
             />
