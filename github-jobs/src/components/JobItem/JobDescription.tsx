@@ -31,6 +31,7 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   title: {
     textDecoration: 'none',
+    color: palette.primary.main
   },
   distanceToNow: {
     marginLeft: spacing(1),
