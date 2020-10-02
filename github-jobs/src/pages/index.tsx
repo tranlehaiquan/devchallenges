@@ -49,30 +49,19 @@ const IndexPage = () => {
     })();
   }, [description, location, fullTime]);
 
-  /**
-   * Run only if user view more
-   */
-  useEffect(() => {
-    if (page !== 1) {
-      (async () => {
-        const cacheScroll = document.documentElement.scrollTop;
-        setLoading(true);
-        const jobsRs = await getListJob({
-          full_time: fullTime,
-          location,
-          description,
-          page,
-        });
-        dispatch(addJobs(jobsRs));
-        setHaveMore(jobsRs.length === 50);
-        setLoading(false);
-        document.documentElement.scrollTop = cacheScroll;
-      })();
-    }
-  }, [page]);
-
-  const handleLoadMore = () => {
+  const handleLoadMore = async () => {
     setPage(page + 1);
+    const cacheScroll = document.documentElement.scrollTop;
+    const jobsRs = await getListJob({
+      full_time: fullTime,
+      location,
+      description,
+      page: page + 1,
+    });
+    dispatch(addJobs(jobsRs));
+    setHaveMore(jobsRs.length === 50);
+    document.documentElement.scrollTop = cacheScroll;
+    return;
   };
 
   return (

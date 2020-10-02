@@ -1,15 +1,11 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import Typo from '@material-ui/core/Typography';
 import clsx from 'clsx';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import { Link } from 'gatsby';
 
-import JobType from '../JobType';
-import DistanceToNow from '../DistanceToNow';
-import HireLocation from '../HireLocation';
+import JobItemWrapper from './JobItemWrapper';
 import Image from '../Image';
 import { Job } from '../../types/job';
+import JobDescription from './JobDescription';
 
 const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
   root: {
@@ -85,7 +81,7 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
   },
   distanceToNow: {
     marginLeft: spacing(1),
-  }
+  },
 }));
 
 interface JobItemProps extends Job {
@@ -105,29 +101,20 @@ const JobItem: React.FC<JobItemProps> = ({
   const classes = useStyles();
 
   return (
-    <div className={clsx(className, classes.root)}>
-      <div className={classes.logo}>
-        <Image src={company_logo} alt={company} loading="lazy" />
-      </div>
-      <div className={classes.jobDes}>
-        <Typo variant="subtitle2">{company}</Typo>
-
-        <Typo variant="h6">
-          <Link className={classes.title} to={`/position/${id}`}>
-            {title}
-          </Link>
-        </Typo>
-
-        <div className={classes.jobInfos}>
-          <JobType>{type}</JobType>
-
-          <div className={classes.durationAndLocation}>
-            <HireLocation location={location} />
-            <DistanceToNow time={formatDistanceToNow(new Date(created_at))} className={classes.distanceToNow} />
-          </div>
-        </div>
-      </div>
-    </div>
+    <JobItemWrapper
+      className={clsx(classes.root, className)}
+      logo={<Image src={company_logo} alt={company} loading="lazy" />}
+      description={
+        <JobDescription
+          location={location}
+          id={id}
+          company={company}
+          title={title}
+          created_at={created_at}
+          type={type}
+        />
+      }
+    />
   );
 };
 

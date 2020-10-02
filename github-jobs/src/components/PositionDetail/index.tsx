@@ -18,7 +18,7 @@ interface PositionDetailProps {
   id: string;
 }
 
-const useStyles = makeStyles(({ spacing }) => ({
+const useStyles = makeStyles(({ spacing, palette }) => ({
   howToApply: {
     wordBreak: 'break-word',
     marginTop: spacing(-1),
@@ -33,7 +33,8 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
   time: {
     marginBottom: spacing(2),
-  }
+    color: palette.grey[500]
+  },
 }));
 
 const PositionDetail: React.FC<PositionDetailProps> = ({ id }) => {

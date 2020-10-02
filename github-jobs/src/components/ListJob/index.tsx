@@ -29,6 +29,7 @@ const ListJob: React.FC<ListJobProps> = ({
   haveMore = false,
   onLoadMore,
 }) => {
+  const [disableLoadMore, setDisableLoadMore] = React.useState<boolean>(false);
   const classes = useStyles();
 
   if (jobs.length === 0 && !loading) {
@@ -37,10 +38,15 @@ const ListJob: React.FC<ListJobProps> = ({
     );
   }
 
+  const handleOnClick = async () => {
+    setDisableLoadMore(true);
+    await onLoadMore();
+    setDisableLoadMore(false);
+  };
+
   return (
     <>
-      {jobs.length === 0 &&
-        loading &&
+      {loading &&
         [...new Array(50)].map((item, index) => (
           <JobItemSkeleton className={classes.jobItem} key={index} />
         ))}
@@ -52,8 +58,8 @@ const ListJob: React.FC<ListJobProps> = ({
           variant="outlined"
           fullWidth
           color="primary"
-          disabled={loading}
-          onClick={onLoadMore}>
+          disabled={loading || disableLoadMore}
+          onClick={handleOnClick}>
           Load more
         </Button>
       )}

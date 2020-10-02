@@ -4,21 +4,25 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import HireLocation from '../HireLocation';
 
-const useStyles = makeStyles(({ spacing }) => ({
+const useStyles = makeStyles(({ spacing, palette }) => ({
   root: {
     display: 'flex',
     alignItems: 'center',
+    marginBottom: spacing(4),
   },
   logo: {
-    maxHeight: 50,
-    maxWidth: 50,
+    maxHeight: 70,
+    maxWidth: 70,
     marginRight: spacing(2),
     '& img': {
       display: 'block',
-      maxHeight: 50,
-      maxWidth: 50,
+      maxHeight: 70,
+      maxWidth: 70,
     },
   },
+  location: {
+    color: palette.grey[500]
+  }
 }));
 
 interface CompanyInfoProps {
@@ -41,7 +45,7 @@ const CompanyInfo: React.FC<CompanyInfoProps> = ({
       </div>
       <div>
         <Typo variant="h6">{company}</Typo>
-        <HireLocation location={location} />
+        <HireLocation location={location} className={classes.location} />
       </div>
     </div>
   );
