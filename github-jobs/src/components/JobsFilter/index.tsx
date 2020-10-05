@@ -22,7 +22,7 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
     marginBottom: spacing(4),
     [breakpoints.down('sm')]: {
       marginBottom: spacing(1.5),
-    }
+    },
   },
   locationSection: {},
   locationLabel: {
@@ -31,13 +31,13 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
     marginBottom: spacing(1.75),
     [breakpoints.down('sm')]: {
       marginBottom: spacing(1),
-    }
+    },
   },
   locationInput: {
     marginBottom: spacing(3),
     [breakpoints.down('sm')]: {
       marginBottom: spacing(1),
-    }
+    },
   },
   locationIcon: {
     color: palette.grey[500],
@@ -62,17 +62,25 @@ const JobsFilter = () => {
     setInputLocation(event.target.value);
   };
 
-  const handleLocationOptionCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLocationOptionCheck = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     dispatch(setLocation(event.target.value));
-  }
+  };
 
   const handleInputOnBlur = () => {
     dispatch(setLocation(inputLocation));
-  }
+  };
 
   useEffect(() => {
     setInputLocation(location);
-  }, [location])
+  }, [location]);
+  
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      dispatch(setLocation(inputLocation));
+    }
+  };
 
   return (
     <div>
@@ -99,6 +107,7 @@ const JobsFilter = () => {
           value={inputLocation}
           onChange={handleInputChange}
           onBlur={handleInputOnBlur}
+          onKeyPress={handleKeyPress}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start" className={classes.locationIcon}>
@@ -107,7 +116,10 @@ const JobsFilter = () => {
             ),
           }}
         />
-        <RadioGroup name="location" onChange={handleLocationOptionCheck} value={location}>
+        <RadioGroup
+          name="location"
+          onChange={handleLocationOptionCheck}
+          value={location}>
           <FormControlLabel
             value="london"
             control={<Radio color="primary" />}
