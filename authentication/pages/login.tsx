@@ -1,24 +1,27 @@
-import React from "react";
-import Typo from "@material-ui/core/Typography";
-import { TextField } from "@material-ui/core";
-import Link from "next/link";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import Head from "next/head";
-import SocialIdentity from '../components/SocialIdentity';
+import React from 'react';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Head from 'next/head';
 
-import IdentityBox from "../components/IdentityBox";
-import Button from "../components/Button";
+import SocialIdentity from '../components/SocialIdentity';
+import TextField from '../components/TextField';
+import IdentityBox from '../components/IdentityBox';
+import Button from '../components/Button';
 
 interface Props {
   className?: string;
 }
 
-const useStyles = makeStyles(() => ({
-  description: {},
+const useStyles = makeStyles(({ spacing }) => ({
+  description: {
+    marginBottom: spacing(3),
+  },
+  textField: {
+    marginBottom: spacing(1.75),
+  },
 }));
 
 const desc =
-  "Master web development by making real-life projects. There are multiple paths for you to choose";
+  'Master web development by making real-life projects. There are multiple paths for you to choose';
 
 const Login: React.FC<Props> = (props) => {
   const classes = useStyles();
@@ -29,20 +32,27 @@ const Login: React.FC<Props> = (props) => {
         <title>Login</title>
       </Head>
       <IdentityBox description={desc}>
-        <div>
-          <TextField placeholder="Email" fullWidth type="text" />
-          <TextField placeholder="Password" fullWidth type="password" />
+        <div className={classes.description}>
+          <TextField
+            variant="outlined"
+            placeholder="Email"
+            fullWidth
+            type="text"
+            className={classes.textField}
+          />
+          <TextField
+            variant="outlined"
+            placeholder="Password"
+            fullWidth
+            type="password"
+            className={classes.textField}
+          />
+          <Button variant="contained" color="primary" fullWidth>
+            Start coding now
+          </Button>
         </div>
 
-        <Button variant="contained" color="primary" fullWidth>
-          Start coding now
-        </Button>
-
         <SocialIdentity />
-
-        <Typo>
-          Doesn't have an account? <Link href="/">Register</Link>
-        </Typo>
       </IdentityBox>
     </>
   );

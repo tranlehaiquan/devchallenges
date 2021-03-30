@@ -1,40 +1,61 @@
 import React from 'react';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Head from 'next/head';
+
+import SocialIdentity from '../components/SocialIdentity';
+import TextField from '../components/TextField';
 import IdentityBox from '../components/IdentityBox';
-import Typo from "@material-ui/core/Typography";
-import { TextField, Button } from "@material-ui/core";
-import Link from "next/link";
+import Button from '../components/Button';
 
 interface Props {
   className?: string;
-};
+}
+
+const useStyles = makeStyles(({ spacing }) => ({
+  description: {
+    marginBottom: spacing(3),
+  },
+  textField: {
+    marginBottom: spacing(1.75),
+  },
+}));
+
+const desc =
+  'Master web development by making real-life projects. There are multiple paths for you to choose';
 
 const Register: React.FC<Props> = (props) => {
+  const classes = useStyles();
+
   return (
-    <IdentityBox>
-      <Typo variant="h6">
-        Join thousands of learners from around the world{" "}
-      </Typo>
-      <Typo>
-        Master web development by making real-life projects. There are multiple
-        paths for you to choose
-      </Typo>
+    <>
+      <Head>
+        <title>Login</title>
+      </Head>
+      <IdentityBox description={desc}>
+        <div className={classes.description}>
+          <TextField
+            variant="outlined"
+            placeholder="Email"
+            fullWidth
+            type="text"
+            className={classes.textField}
+          />
+          <TextField
+            variant="outlined"
+            placeholder="Password"
+            fullWidth
+            type="password"
+            className={classes.textField}
+          />
+          <Button variant="contained" color="primary" fullWidth>
+            Start coding now
+          </Button>
+        </div>
 
-      <div>
-        <TextField placeholder="Email" fullWidth type="text" />
-        <TextField placeholder="Password" fullWidth type="password" />
-      </div>
-
-      <Button variant="contained" color="primary" fullWidth>
-        Start coding now
-      </Button>
-
-      <Typo>or continue with these social profile</Typo>
-
-      <Typo>
-        Adready a member? <Link href="/login">Login</Link>
-      </Typo>
-    </IdentityBox>
+        <SocialIdentity type="login" />
+      </IdentityBox>
+    </>
   );
-}
+};
 
 export default Register;

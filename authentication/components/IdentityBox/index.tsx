@@ -57,11 +57,11 @@ const IdentityBox: React.FC<Props> = ({ children, description }) => {
         <div className={classes.box}>
           <div className={classes.description}>
             <Image
-              src="/logo-dev.png"
+              src="/devchallenges.svg"
               alt="Dev author"
               width={180}
               height={30}
-              objectFit="cover"
+              objectFit="contain"
             />
             <Typo variant="h6" component="h1" className={classes.title}>
               Join thousands of learners from around the world
