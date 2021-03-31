@@ -1,13 +1,14 @@
-import { ThemeProvider } from "@material-ui/core/styles";
-import React from "react";
-import Head from "next/head";
-import theme from "../src/theme";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { ThemeProvider } from '@material-ui/core/styles';
+import React from 'react';
+import Head from 'next/head';
+import theme from '../src/theme';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { AuthProvider } from '../src/hooks/useAuth';
 
 function MyApp({ Component, pageProps }) {
   React.useEffect(() => {
     // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector("#jss-server-side");
+    const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
@@ -23,7 +24,9 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Component {...pageProps} />
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
       </ThemeProvider>
     </>
   );

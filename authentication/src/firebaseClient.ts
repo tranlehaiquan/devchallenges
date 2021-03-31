@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebaseClient from 'firebase/app';
 import 'firebase/auth';
 
 const firebaseConfig = {
@@ -7,8 +7,20 @@ const firebaseConfig = {
   projectId: "devchallenge-quan",
   storageBucket: "devchallenge-quan.appspot.com",
   messagingSenderId: "771491040679",
-  appId: "1:771491040679:web:8075aab4a9263915b1ba82"
+  appId: "1:771491040679:web:8075aab4a9263915b1ba82",
 };
 
-firebase.initializeApp(firebaseConfig);
+// if (firebaseClient.apps.length === 0) {
+//   firebaseClient.initializeApp(firebaseConfig);
+//   console.log('initializeApp');
+// }
 
+if (typeof window !== "undefined" && !firebaseClient.apps.length) {
+  firebaseClient.initializeApp(firebaseConfig);
+  firebaseClient
+    .auth()
+    .setPersistence(firebaseClient.auth.Auth.Persistence.SESSION);
+  (window as any).firebase = firebaseClient;
+}
+
+export default firebaseClient;
