@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Head from 'next/head';
 import { useFormik } from 'formik';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 import SocialIdentity from '../components/SocialIdentity';
 import TextField from '../components/TextField';
@@ -27,6 +27,7 @@ const desc =
   'Master web development by making real-life projects. There are multiple paths for you to choose';
 
 const Login: React.FC<Props> = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const classes = useStyles();
   const formik = useFormik({
@@ -36,14 +37,14 @@ const Login: React.FC<Props> = () => {
     },
     onSubmit: async (values) => {
       try {
-        const user = await firebaseClient.auth().signInWithEmailAndPassword(
-          values.email,
-          values.password
-        );
+        setLoading(true);
+        const user = await firebaseClient
+          .auth()
+          .signInWithEmailAndPassword(values.email, values.password);
+        setLoading(false);
         router.push('/');
-
-        console.log(user);
       } catch (err) {
+        setLoading(false);
         console.log(err);
       }
     },
@@ -68,6 +69,7 @@ const Login: React.FC<Props> = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className={classes.textField}
+            disabled={loading}
           />
           <TextField
             variant="outlined"
@@ -79,11 +81,13 @@ const Login: React.FC<Props> = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className={classes.textField}
+            disabled={loading}
           />
           <Button
             variant="contained"
             color="primary"
             fullWidth
+            disabled={loading}
             onClick={handleSubmit}>
             Start coding now
           </Button>

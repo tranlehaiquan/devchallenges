@@ -32,3 +32,42 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+# Authentication
+
+```
+Client --request--> Server
+Server --return (page)--> Client
+Client --request (token)--> Firebase (firebase/app, firebase/auth)
+Firebase --return (token)--> Client
+Client --use (token)--> Server
+Server --verify (token)--> Firebase (firebase/admin)
+Server --return (data)--> Client
+```
+## Authentication on SSR
+Client send token to the server, server verify and get user info and send it back to client.
+
+```
+Client --send (token)--> server
+Server --verify (token)--> Firebase
+Server --send html page with user info--> Client
+```
+
+## Authentication on Client
+Client get user info from Firebase (no need go to the server)
+
+Props:
+
+ - First Byte is fast
+
+Cons:
+
+ - Server doesn't know is user login or not
+
+```
+Client --send (token optional)--> server
+Server --Send html page--> Client
+Client --Get user info--> Firebase
+```
+
+https://nextjs.org/docs/authentication#authentication-patterns

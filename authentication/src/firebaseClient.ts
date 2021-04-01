@@ -2,25 +2,26 @@ import firebaseClient from 'firebase/app';
 import 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCyKs9bSG3fYssr-sFhb6kv-VsKT6UpGfE",
-  authDomain: "devchallenge-quan.firebaseapp.com",
-  projectId: "devchallenge-quan",
-  storageBucket: "devchallenge-quan.appspot.com",
-  messagingSenderId: "771491040679",
-  appId: "1:771491040679:web:8075aab4a9263915b1ba82",
+  apiKey: process.env.FIREBASE_APIKEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESS_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
 };
-
-// if (firebaseClient.apps.length === 0) {
-//   firebaseClient.initializeApp(firebaseConfig);
-//   console.log('initializeApp');
-// }
 
 if (typeof window !== "undefined" && !firebaseClient.apps.length) {
   firebaseClient.initializeApp(firebaseConfig);
   firebaseClient
     .auth()
-    .setPersistence(firebaseClient.auth.Auth.Persistence.SESSION);
+    .setPersistence(firebaseClient.auth.Auth.Persistence.LOCAL).then(() => {
+      console.log('done');
+    });
   (window as any).firebase = firebaseClient;
 }
 
+let providerGithub = new firebaseClient.auth.GithubAuthProvider();
+providerGithub.addScope('user:email');
+
+export { providerGithub };
 export default firebaseClient;
