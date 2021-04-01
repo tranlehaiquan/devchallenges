@@ -9,7 +9,9 @@ import TextField from '../components/TextField';
 import IdentityBox from '../components/IdentityBox';
 import Button from '../components/Button';
 import firebaseClient from '../src/firebaseClient';
+import getValidationSchema from '../src/yup';
 
+const validationSchema = getValidationSchema(['email', 'password']);
 interface Props {
   className?: string;
 }
@@ -31,6 +33,7 @@ const Login: React.FC<Props> = () => {
   const router = useRouter();
   const classes = useStyles();
   const formik = useFormik({
+    validationSchema,
     initialValues: {
       email: '',
       password: '',
@@ -38,7 +41,7 @@ const Login: React.FC<Props> = () => {
     onSubmit: async (values) => {
       try {
         setLoading(true);
-        const user = await firebaseClient
+        await firebaseClient
           .auth()
           .signInWithEmailAndPassword(values.email, values.password);
         setLoading(false);
@@ -69,6 +72,8 @@ const Login: React.FC<Props> = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className={classes.textField}
+            helperText={formik.touched.email && formik.errors.email}
+            error={!!(formik.touched.email && formik.errors.email)}
             disabled={loading}
           />
           <TextField
@@ -81,6 +86,8 @@ const Login: React.FC<Props> = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className={classes.textField}
+            helperText={formik.touched.password && formik.errors.password}
+            error={!!(formik.touched.password && formik.errors.password)}
             disabled={loading}
           />
           <Button

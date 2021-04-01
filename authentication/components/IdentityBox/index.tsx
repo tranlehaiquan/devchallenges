@@ -73,7 +73,7 @@ const IdentityBox: React.FC<Props> = ({ children, description }) => {
           {children}
         </div>
         <div className={classes.boxFooter}>
-          <Typo>created by username</Typo>
+          <Typo>By Q.Tran</Typo>
           <Typo>devChallenges.io</Typo>
         </div>
       </div>
