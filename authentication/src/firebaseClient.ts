@@ -10,17 +10,25 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID,
 };
 
-if (typeof window !== "undefined" && !firebaseClient.apps.length) {
+if (typeof window !== 'undefined' && !firebaseClient.apps.length) {
   firebaseClient.initializeApp(firebaseConfig);
   firebaseClient
     .auth()
-    .setPersistence(firebaseClient.auth.Auth.Persistence.LOCAL).then(() => {
+    .setPersistence(firebaseClient.auth.Auth.Persistence.LOCAL)
+    .then(() => {
       console.log('done');
     });
   (window as any).firebase = firebaseClient;
 }
 
 let providerGithub = new firebaseClient.auth.GithubAuthProvider();
+let providerEmail = new firebaseClient.auth.EmailAuthProvider();
+
+export const providers = {
+  password: providerEmail,
+  github: providerGithub,
+};
+
 providerGithub.addScope('user:email');
 
 export { providerGithub };

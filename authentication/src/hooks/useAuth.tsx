@@ -6,6 +6,9 @@ import React, {
   useCallback,
 } from 'react';
 import nookies from 'nookies';
+// import keys from 'lodash/keys';
+
+import getUserAvatar from '../utils/getUserAvatar';
 import firebaseClient from '../firebaseClient';
 
 const AuthContext = createContext<{
@@ -33,7 +36,7 @@ export function AuthProvider({ children }: any) {
     }
 
     return firebaseClient.auth().onIdTokenChanged(async (user) => {
-      // this function alwasy be called ethier token exist or not
+      // this function always be called either token exist or not
       console.log(`token changed!`);
       if (!user) {
         console.log(`no token found...`);
@@ -43,6 +46,34 @@ export function AuthProvider({ children }: any) {
         setMounted(true);
         return;
       }
+
+      if (!user.displayName || !user.photoURL) {
+        const displayName =
+          user.providerData.reduce((currentName, { displayName }) => {
+            if (!currentName && displayName) return displayName;
+            return currentName;
+          }, '') || user.email;
+        user.updateProfile({
+          photoURL: getUserAvatar(user.email),
+          displayName,
+        });
+      }
+
+      // auto link account social
+      // const providersName = keys(providers);
+      // if (user.providerData.length < providersName.length) {
+      //   const providerDataToObject = user.providerData.reduce((acc, provider) => {
+      //     acc[provider.providerId] = provider;
+
+      //     return acc;
+      //   }, {});
+
+      //   providersName.forEach((providerName) => {
+      //     if(!providerDataToObject[providerName]) {
+      //       user.linkWithPopup(providers[providerName]);
+      //     }
+      //   });
+      // }
 
       console.log(`updating token...`);
       const token = await user.getIdToken();

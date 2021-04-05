@@ -12,7 +12,22 @@ const useStyles = makeStyles(({ spacing }) => ({
   root: {
     paddingTop: spacing(3),
     paddingBottom: spacing(3),
+    display: 'grid',
+    gridTemplateColumns: 'auto 1fr',
   },
+  user: {
+    justifySelf: 'end',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    marginRight: spacing(1),
+    borderRadius: 5,
+    overflow: 'hidden',
+    objectFit: 'cover',
+  }
 }));
 
 const Nav: React.FC<Props> = () => {
@@ -30,7 +45,12 @@ const Nav: React.FC<Props> = () => {
           objectFit="contain"
         />
 
-        {user && user.displayName}
+        {user && (
+          <div className={classes.user}>
+            <img className={classes.avatar} src={user.photoURL} alt="user avatar" />
+            {user.displayName}
+          </div>
+        )}
       </div>
     </Container>
   );

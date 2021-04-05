@@ -1,12 +1,20 @@
 import Head from 'next/head';
 import router from 'next/router';
+import { Container, makeStyles, Typography } from '@material-ui/core';
 
 import Nav from '../components/Nav';
 import { useAuth } from '../src/hooks/useAuth';
-import styles from '../styles/Home.module.css';
+
+const useStyles = makeStyles(({ spacing }) => ({
+  des: {
+    textAlign: 'center',
+    marginBottom: spacing(5)
+  },
+}));
 
 export default function Home() {
   const { user, mounted, signOut } = useAuth();
+  const classes = useStyles();
 
   if (mounted && !user) {
     router.push('/login');
@@ -23,10 +31,21 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav />
-      <div className={styles.container}>
-        hello to page {user && user.providerData[0].email}
-        {user && <button onClick={handleLogout}>Sign out</button>}
-      </div>
+      <Container>
+        <div className={classes.des}>
+          <Typography variant="h4" component="h1">
+            Personal info
+          </Typography>
+          <Typography>Basic info, like your name and photo</Typography>
+        </div>
+        {user && (
+          <>
+            <p>{user.email}</p>
+            <img src={user.photoURL} alt="user avatar" />
+            <button onClick={handleLogout}>Sign out</button>
+          </>
+        )}
+      </Container>
     </>
   );
 }

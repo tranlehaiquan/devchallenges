@@ -5,10 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import firebaseClient, { providerGithub } from '../../src/firebaseClient';
 import { useRouter } from 'next/router';
+import noop from 'lodash/noop';
 
 interface Props {
   className?: string;
   type?: 'login' | 'register';
+  onError?: (error: { email: string; message: string }) => void;
 }
 
 const useStyles = makeStyles(({ spacing }) => ({
@@ -40,16 +42,22 @@ const socialMapProvide = {
   Github: providerGithub,
 };
 
-const SocialIndentity: React.FC<Props> = ({ type = 'register' }) => {
+const SocialIndentity: React.FC<Props> = ({
+  type = 'register',
+  onError = noop,
+}) => {
   const classes = useStyles();
   const router = useRouter();
 
   const handleSocialClick = async (social: string) => {
     const provide = socialMapProvide[social];
-    await firebaseClient.auth().signInWithPopup(provide);
-
-    router.push('/');
-  }
+    try {
+      await firebaseClient.auth().signInWithPopup(provide);
+      router.push('/');
+    } catch (err) {
+      onError(err);
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -58,7 +66,10 @@ const SocialIndentity: React.FC<Props> = ({ type = 'register' }) => {
       </Typo>
       <div className={classes.socials}>
         {listSocial.map((social) => (
-          <button key={social} className={classes.social} onClick={() => handleSocialClick(social)}>
+          <button
+            key={social}
+            className={classes.social}
+            onClick={() => handleSocialClick(social)}>
             <Image
               src={`/${social}.svg`}
               alt={social}

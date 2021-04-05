@@ -20,12 +20,12 @@ export const validations = {
 };
 
 const extractFields = (fields: string[]) => pick(validations, fields);
-const getValidationSchema = (values: string[]): yup.ObjectSchema =>
+const getValidationSchema = (values: string[]): yup.ObjectSchema<any> =>
   yup.object().shape(extractFields(values));
 
 export const generateValidationFromSchema = (
-  shape: Partial<yup.AnySchemaConstructor>
-): yup.ObjectSchema => yup.object().shape(shape);
+  shape
+) => yup.object().shape(shape);
 export default getValidationSchema;
 
 export { yup };
