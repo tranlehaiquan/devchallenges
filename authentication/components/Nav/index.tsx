@@ -11,8 +11,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { useAuth } from '../../src/hooks/useAuth';
+import { useRouter } from 'next/router';
 
 interface Props {
   className?: string;
@@ -45,9 +47,13 @@ const useStyles = makeStyles(({ spacing, breakpoints }) => ({
       display: 'none',
     },
   },
+  avatarLink: {
+    display: 'flex',
+  },
 }));
 
 const Nav: React.FC<Props> = () => {
+  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef(null);
   const { user, signOut } = useAuth();
@@ -74,22 +80,29 @@ const Nav: React.FC<Props> = () => {
 
   const handleLogout = () => {
     signOut();
-  }
+  };
 
   return (
     <Container>
       <div className={classes.root}>
-        <Image
-          src="/devchallenges.svg"
-          alt="Dev author"
-          width={180}
-          height={30}
-          objectFit="contain"
-        />
+        <Link href="/">
+          <a className={classes.avatarLink}>
+            <Image
+              src="/devchallenges.svg"
+              alt="Dev author"
+              width={180}
+              height={30}
+              objectFit="contain"
+            />
+          </a>
+        </Link>
 
         {user && (
           <>
-            <button onClick={handleToggle} className={classes.user} ref={anchorRef}>
+            <button
+              onClick={handleToggle}
+              className={classes.user}
+              ref={anchorRef}>
               <img
                 className={classes.avatar}
                 src={user.photoURL}
@@ -118,8 +131,12 @@ const Nav: React.FC<Props> = () => {
                         autoFocusItem={open}
                         id="menu-list-grow"
                         onKeyDown={handleListKeyDown}>
-                        <MenuItem onClick={handleClose}>My Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>Group chat</MenuItem>
+                        <MenuItem onClick={() => router.push('/')}>
+                          My Profile
+                        </MenuItem>
+                        <MenuItem onClick={() => router.push('/groupChat')}>
+                          Group Chat
+                        </MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                       </MenuList>
                     </ClickAwayListener>
@@ -134,4 +151,4 @@ const Nav: React.FC<Props> = () => {
   );
 };
 
-export default Nav;
+export default React.memo(Nav);

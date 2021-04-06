@@ -1,4 +1,4 @@
-import * as firebaseAdmin from "firebase-admin";
+import * as firebaseAdmin from 'firebase-admin';
 
 const privateKey = process.env.FIREBASE_PRIVATE_KEY;
 const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
@@ -17,7 +17,7 @@ if (!firebaseAdmin.apps.length) {
       clientEmail,
       projectId,
     }),
-    databaseURL: `https://${projectId}.firebaseio.com`,
+    databaseURL: 'https://devchallenge-quan-default-rtdb.firebaseio.com',
   });
 }
 
