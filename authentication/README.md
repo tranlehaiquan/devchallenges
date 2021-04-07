@@ -71,3 +71,10 @@ Client --Get user info--> Firebase
 ```
 
 https://nextjs.org/docs/authentication#authentication-patterns
+
+
+## Functions
+
+- Get user info
+- Update user info
+- Upload image

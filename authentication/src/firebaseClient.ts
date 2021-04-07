@@ -1,5 +1,6 @@
 import firebaseClient from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/performance';
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_APIKEY,
@@ -19,6 +20,8 @@ if (typeof window !== 'undefined' && !firebaseClient.apps.length) {
       console.log('done');
     });
   (window as any).firebase = firebaseClient;
+
+  firebaseClient.performance();
 }
 
 let providerGithub = new firebaseClient.auth.GithubAuthProvider();
