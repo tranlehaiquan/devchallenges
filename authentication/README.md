@@ -78,3 +78,12 @@ https://nextjs.org/docs/authentication#authentication-patterns
 - Get user info
 - Update user info
 - Upload image
+
+## Deploy
+
+```
+npm i
+npm run build
+npm run export
+firebase deploy --only hosting
+```
