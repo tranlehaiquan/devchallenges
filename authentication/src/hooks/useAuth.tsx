@@ -6,8 +6,8 @@ import React, {
   useCallback,
 } from 'react';
 import nookies from 'nookies';
-// import keys from 'lodash/keys';
 
+import { setHeaderAuth, clearHeaderAuth } from '../apis/axios';
 import getUserAvatar from '../utils/getUserAvatar';
 import firebaseClient from '../firebaseClient';
 
@@ -40,6 +40,7 @@ export function AuthProvider({ children }: any) {
       console.log(`token changed!`);
       if (!user) {
         console.log(`no token found...`);
+        clearHeaderAuth();
         setUser(null);
         nookies.destroy(null, 'token');
         nookies.set(null, 'token', '', { path: '/' });
@@ -77,6 +78,7 @@ export function AuthProvider({ children }: any) {
 
       console.log(`updating token...`);
       const token = await user.getIdToken();
+      setHeaderAuth(token); // set token before user and mounted to make sure fnc call after token set
       setUser(user);
       setMounted(true);
       nookies.destroy(null, 'token');
