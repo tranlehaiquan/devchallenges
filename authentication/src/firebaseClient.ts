@@ -19,6 +19,9 @@ if (typeof window !== 'undefined' && !firebaseClient.apps.length) {
     .then(() => {
       console.log('done');
     });
+  if (location.hostname === "localhost") {
+    firebaseClient.auth().useEmulator("http://localhost:9099");
+  }
   (window as any).firebase = firebaseClient;
 
   firebaseClient.performance();

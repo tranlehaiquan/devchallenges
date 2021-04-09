@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: `http://localhost:5001/devchallenge-quan/us-central1`
+  baseURL: `http://localhost:5001/devchallenge-quan/us-central1/api`
 });
 
 export const setHeaderAuth = (token: string): AxiosInstance => {
