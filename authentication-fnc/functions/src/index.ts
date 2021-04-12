@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import get from "lodash/get";
 
+import getUserAvatar from "./utils/getUserAvatar";
 import { userRef } from "./firebaseAdmin";
 import routers from "./routers";
 
@@ -17,15 +18,20 @@ app.use("/", routers);
 exports.api = functions.https.onRequest(app);
 
 exports.onCreateUser = functions.auth.user().onCreate(async (user) => {
-  console.log({
-    bio: "",
-    name: get(user, "displayName", ""),
-    phoneNumber: get(user, "phoneNumber", ""),
-    email: get(user, "email", ""),
-  });
+  let displayName = user.displayName;
+  let photoURL = user.photoURL || getUserAvatar(user.email!);
+
+  if (!displayName) {
+    displayName = user.providerData.reduce((currentName, { displayName }) => {
+      if (!currentName && displayName) return displayName;
+      return currentName;
+    }, "");
+  }
+
   await userRef.child(user.uid).set({
+    photoURL,
     bio: "",
-    name: get(user, "displayName", "") || "",
+    displayName,
     phoneNumber: get(user, "phoneNumber", "") || "",
     email: get(user, "email", "") || "",
   });

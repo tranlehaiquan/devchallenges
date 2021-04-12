@@ -7,26 +7,43 @@ import React, {
 } from 'react';
 import nookies from 'nookies';
 
+import { User } from '../types/User';
 import { setHeaderAuth, clearHeaderAuth } from '../apis/axios';
-import getUserAvatar from '../utils/getUserAvatar';
+import { getUserInfo, updateUserInfo } from '../apis/user';
 import firebaseClient from '../firebaseClient';
 
 const AuthContext = createContext<{
   user: firebaseClient.User | null;
   mounted: boolean;
   signOut: () => Promise<void>;
+  updateUserInfo: (userInfo: User) => Promise<void>;
+  userInfo: User | undefined;
 }>({
   user: null,
   mounted: false,
   signOut: async () => {},
+  userInfo: null,
+  updateUserInfo: async () => {},
 });
 
 export function AuthProvider({ children }: any) {
   const [user, setUser] = useState<firebaseClient.User | null>(null);
   const [mounted, setMounted] = useState<boolean>(false);
+  const [userInfo, setUserInfo] = useState<User>();
 
   const signOutCache = useCallback(async () => {
     await firebaseClient.auth().signOut();
+  }, []);
+
+  const handleGetUserInfo = useCallback(async () => {
+    console.log('handleGetUserInfo');
+    const userInfoRs = await getUserInfo();
+    setUserInfo(userInfoRs.data.user);
+  }, []);
+
+  const handleUpdateUserInfo = useCallback(async (userInfo: Partial<User>) => {
+    const newUserInfo = await updateUserInfo(userInfo);
+    setUserInfo(newUserInfo.data.user);
   }, []);
 
   useEffect(() => {
@@ -48,37 +65,10 @@ export function AuthProvider({ children }: any) {
         return;
       }
 
-      if (!user.displayName || !user.photoURL) {
-        const displayName =
-          user.providerData.reduce((currentName, { displayName }) => {
-            if (!currentName && displayName) return displayName;
-            return currentName;
-          }, '') || user.email;
-        user.updateProfile({
-          photoURL: getUserAvatar(user.email),
-          displayName,
-        });
-      }
-
-      // auto link account social
-      // const providersName = keys(providers);
-      // if (user.providerData.length < providersName.length) {
-      //   const providerDataToObject = user.providerData.reduce((acc, provider) => {
-      //     acc[provider.providerId] = provider;
-
-      //     return acc;
-      //   }, {});
-
-      //   providersName.forEach((providerName) => {
-      //     if(!providerDataToObject[providerName]) {
-      //       user.linkWithPopup(providers[providerName]);
-      //     }
-      //   });
-      // }
-
       console.log(`updating token...`);
       const token = await user.getIdToken();
       setHeaderAuth(token); // set token before user and mounted to make sure fnc call after token set
+      handleGetUserInfo();
       setUser(user);
       setMounted(true);
       nookies.destroy(null, 'token');
@@ -98,7 +88,14 @@ export function AuthProvider({ children }: any) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, mounted, signOut: signOutCache }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        mounted,
+        signOut: signOutCache,
+        userInfo,
+        updateUserInfo: handleUpdateUserInfo,
+      }}>
       {children}
     </AuthContext.Provider>
   );

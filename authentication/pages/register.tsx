@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import Typo from '@material-ui/core/Typography';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useFormik } from 'formik';
 
 import SocialIdentity from '../components/SocialIdentity';
 import TextField from '../components/TextField';
 import IdentityBox from '../components/IdentityBox';
 import Button from '../components/Button';
-import { useRouter } from 'next/router';
-import { useFormik } from 'formik';
 import firebaseClient from '../src/firebaseClient';
 import getValidationSchema from '../src/yup';
 
@@ -20,13 +21,17 @@ interface Props {
   className?: string;
 }
 
-const useStyles = makeStyles(({ spacing }) => ({
+const useStyles = makeStyles(({ spacing, palette }) => ({
   description: {
     marginBottom: spacing(3),
   },
   textField: {
     marginBottom: spacing(1.75),
   },
+  error: {
+    marginBottom: spacing(1.5),
+    color: palette.error.light,
+  }
 }));
 
 const desc =
@@ -34,6 +39,7 @@ const desc =
 
 const Register: React.FC<Props> = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const router = useRouter();
   const classes = useStyles();
   const formik = useFormik({
@@ -53,7 +59,7 @@ const Register: React.FC<Props> = () => {
         router.push('/');
       } catch (err) {
         setLoading(false);
-        console.log(err);
+        setError(err.message);
       }
     },
   });
@@ -66,6 +72,7 @@ const Register: React.FC<Props> = () => {
         <title>Register</title>
       </Head>
       <IdentityBox description={desc}>
+        <Typo className={classes.error}>{error}</Typo>
         <div className={classes.description}>
           <TextField
             variant="outlined"
@@ -122,7 +129,10 @@ const Register: React.FC<Props> = () => {
           </Button>
         </div>
 
-        <SocialIdentity type="login" />
+        <SocialIdentity type="login" 
+          onError={(error) => {
+            setError(error.message);
+          }} />
       </IdentityBox>
     </>
   );

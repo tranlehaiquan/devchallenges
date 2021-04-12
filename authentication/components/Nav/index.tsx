@@ -56,7 +56,7 @@ const Nav: React.FC<Props> = () => {
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef(null);
-  const { user, signOut } = useAuth();
+  const { user, signOut, userInfo } = useAuth();
   const classes = useStyles();
 
   const handleToggle = () => {
@@ -97,7 +97,7 @@ const Nav: React.FC<Props> = () => {
           </a>
         </Link>
 
-        {user && (
+        {user && userInfo && (
           <>
             <button
               onClick={handleToggle}
@@ -105,11 +105,11 @@ const Nav: React.FC<Props> = () => {
               ref={anchorRef}>
               <img
                 className={classes.avatar}
-                src={user.photoURL}
+                src={userInfo.photoURL}
                 alt="user avatar"
               />
               <Typography className={classes.displayName}>
-                {user.displayName}
+                {userInfo.displayName || userInfo.email}
               </Typography>
             </button>
             <Popper

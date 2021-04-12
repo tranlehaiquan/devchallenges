@@ -2,11 +2,9 @@ import Head from 'next/head';
 import router from 'next/router';
 import { Container, makeStyles, Typography } from '@material-ui/core';
 
-import { getUserInfo } from '../src/apis';
 import Nav from '../components/Nav';
 import UserInfo from '../components/UserInfo';
 import { useAuth } from '../src/hooks/useAuth';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles(({ spacing }) => ({
   des: {
@@ -25,12 +23,6 @@ export default function Home() {
   if (mounted && !user) {
     router.push('/login');
   }
-
-  useEffect(() => {
-    if (user && mounted) {
-      getUserInfo();
-    }
-  }, [user, mounted]);
 
   return (
     <>

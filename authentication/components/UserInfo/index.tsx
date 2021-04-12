@@ -14,7 +14,7 @@ const fields = [
     name: 'Name',
   },
   {
-    field: 'description',
+    field: 'bio',
     name: 'Bio',
   },
   {
@@ -56,10 +56,10 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
 }));
 
 const UserInfo: React.FC<Props> = () => {
-  const { user } = useAuth();
+  const { userInfo } = useAuth();
   const classes = useStyles();
 
-  if (!user) return null;
+  if (!userInfo) return null;
 
   return (
     <div className={classes.root}>
@@ -82,7 +82,7 @@ const UserInfo: React.FC<Props> = () => {
           <Typography>Photo</Typography>
         </div>
         <div>
-          <img src={user.photoURL} alt="user avatar" />
+          <img src={userInfo.photoURL} alt="user avatar" />
         </div>
       </div>
 
@@ -91,7 +91,7 @@ const UserInfo: React.FC<Props> = () => {
           <div className={classes.fieldName}>
             <Typography>{name}</Typography>
           </div>
-          <div>{user[field]}</div>
+          <div>{userInfo[field]}</div>
         </div>
       ))}
       <div className={clsx(classes.row, classes.rowBody)}>

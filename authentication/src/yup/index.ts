@@ -17,15 +17,16 @@ export const validations = {
         .string()
         .oneOf([yup.ref('password')], 'Both password need to be the same!'),
     }),
+  photoURL: yup.string().url().required(),
+  displayName: yup.string().required(),
 };
 
 const extractFields = (fields: string[]) => pick(validations, fields);
 const getValidationSchema = (values: string[]): yup.ObjectSchema<any> =>
   yup.object().shape(extractFields(values));
 
-export const generateValidationFromSchema = (
-  shape
-) => yup.object().shape(shape);
+export const generateValidationFromSchema = (shape) =>
+  yup.object().shape(shape);
 export default getValidationSchema;
 
 export { yup };
