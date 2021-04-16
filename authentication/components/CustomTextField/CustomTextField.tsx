@@ -24,7 +24,7 @@ const useStyles = makeStyle(({ spacing }) => ({
   },
 }));
 
-const TextFieldCustom: React.FunctionComponent<
+const CustomTextField: React.FunctionComponent<
   TextFieldProps & { caption?: string }
 > = ({ label, id, variant = 'outlined', caption = '', ...restProps }) => {
   const { required } = restProps;
@@ -40,9 +40,9 @@ const TextFieldCustom: React.FunctionComponent<
           {caption}
         </caption>
       )}
-      <TextField {...restProps} variant={variant} />
+      <TextField variant={variant} {...restProps} />
     </>
   );
 };
 
-export default TextFieldCustom;
+export default CustomTextField;

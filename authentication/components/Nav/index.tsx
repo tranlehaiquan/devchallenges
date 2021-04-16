@@ -10,7 +10,6 @@ import {
   Popper,
   Typography,
 } from '@material-ui/core';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { useAuth } from '../../src/hooks/useAuth';
@@ -87,12 +86,9 @@ const Nav: React.FC<Props> = () => {
       <div className={classes.root}>
         <Link href="/">
           <a className={classes.avatarLink}>
-            <Image
+            <img
               src="/devchallenges.svg"
               alt="Dev author"
-              width={180}
-              height={30}
-              objectFit="contain"
             />
           </a>
         </Link>

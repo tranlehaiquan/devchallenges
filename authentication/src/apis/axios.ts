@@ -1,7 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
 
+const axiosConfig = {
+  baseURL: process.env.FUNCTIONS_URL,
+};
+
+console.log(axiosConfig);
+
 const axiosInstance = axios.create({
-  baseURL: `http://localhost:5001/devchallenge-quan/us-central1/api`
+  baseURL: `${axiosConfig.baseURL}/api`
 });
 
 export const setHeaderAuth = (token: string): AxiosInstance => {

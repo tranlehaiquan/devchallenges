@@ -1,9 +1,11 @@
 import { ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import Head from 'next/head';
-import theme from '../src/theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { SnackbarProvider } from 'notistack';
+
 import { AuthProvider } from '../src/hooks/useAuth';
+import theme from '../src/theme';
 
 function MyApp({ Component, pageProps }) {
   React.useEffect(() => {
@@ -24,9 +26,11 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
+        <SnackbarProvider maxSnack={3} preventDuplicate autoHideDuration={2000}>
+          <AuthProvider>
+            <Component {...pageProps} />
+          </AuthProvider>
+        </SnackbarProvider>
       </ThemeProvider>
     </>
   );

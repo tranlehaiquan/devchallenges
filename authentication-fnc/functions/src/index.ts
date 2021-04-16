@@ -19,7 +19,7 @@ exports.api = functions.https.onRequest(app);
 
 exports.onCreateUser = functions.auth.user().onCreate(async (user) => {
   let displayName = user.displayName;
-  let photoURL = user.photoURL || getUserAvatar(user.email!);
+  const photoURL = user.photoURL || getUserAvatar(user.email || "");
 
   if (!displayName) {
     displayName = user.providerData.reduce((currentName, { displayName }) => {

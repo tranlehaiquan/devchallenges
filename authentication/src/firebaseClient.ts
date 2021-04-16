@@ -9,6 +9,7 @@ const firebaseConfig = {
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.FIREBASE_MESS_SENDER_ID,
   appId: process.env.FIREBASE_APP_ID,
+  useEmulator: process.env.USE_EMULATOR,
 };
 
 if (typeof window !== 'undefined' && !firebaseClient.apps.length) {
@@ -19,8 +20,8 @@ if (typeof window !== 'undefined' && !firebaseClient.apps.length) {
     .then(() => {
       console.log('done');
     });
-  if (location.hostname === "localhost") {
-    firebaseClient.auth().useEmulator("http://localhost:9099");
+  if (firebaseConfig.useEmulator) {
+    firebaseClient.auth().useEmulator(firebaseConfig.useEmulator);
   }
   (window as any).firebase = firebaseClient;
 

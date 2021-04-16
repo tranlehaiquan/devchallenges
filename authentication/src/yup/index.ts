@@ -21,8 +21,10 @@ export const validations = {
   displayName: yup.string().required(),
 };
 
-const extractFields = (fields: string[]) => pick(validations, fields);
-const getValidationSchema = (values: string[]): yup.ObjectSchema<any> =>
+type validationsKey = keyof typeof validations;
+
+const extractFields = (fields: validationsKey[]) => pick(validations, fields);
+const getValidationSchema = (values: validationsKey[]): yup.ObjectSchema<any> =>
   yup.object().shape(extractFields(values));
 
 export const generateValidationFromSchema = (shape) =>

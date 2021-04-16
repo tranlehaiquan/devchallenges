@@ -25,5 +25,6 @@ module.exports = {
     "quotes": ["error", "double"],
     "max-len": ["error", { code: 100 }],
     "object-curly-spacing": ["error", "always"],
+    "no-non-null-assertion": 0,
   },
 };

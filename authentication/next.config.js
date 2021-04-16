@@ -14,8 +14,6 @@ module.exports = (phase) => {
   const isStaging =
     phase === PHASE_PRODUCTION_BUILD && process.env.STAGING === '1';
 
-  console.log(`isDev:${isDev}  isProd:${isProd}   isStaging:${isStaging}`);
-
   const env = {
     FIREBASE_APIKEY: process.env.FIREBASE_APIKEY,
     FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
@@ -23,6 +21,8 @@ module.exports = (phase) => {
     FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
     FIREBASE_MESS_SENDER_ID: process.env.FIREBASE_MESS_SENDER_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
+    FUNCTIONS_URL: process.env.FUNCTIONS_URL,
+    USE_EMULATOR: process.env.USE_EMULATOR,
   };
 
   // next.config.js object

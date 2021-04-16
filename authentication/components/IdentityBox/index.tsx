@@ -1,7 +1,6 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typo from '@material-ui/core/Typography';
-import Image from 'next/image';
 
 const useStyles = makeStyles(({ spacing }) => ({
   root: {
@@ -56,12 +55,9 @@ const IdentityBox: React.FC<Props> = ({ children, description }) => {
       <div className={classes.wrapper}>
         <div className={classes.box}>
           <div className={classes.description}>
-            <Image
+            <img
               src="/devchallenges.svg"
               alt="Dev author"
-              width={180}
-              height={30}
-              objectFit="contain"
             />
             <Typo variant="h6" component="h1" className={classes.title}>
               Join thousands of learners from around the world

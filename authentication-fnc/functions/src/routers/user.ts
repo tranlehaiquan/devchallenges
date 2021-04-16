@@ -13,15 +13,15 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const updateUser = async (
-  req: Request,
-  res: Response
+    req: Request,
+    res: Response
 ): Promise<void> => {
   const userUpdateData = pickBy(
-    pick(req.body, ["photoURL", "displayName", "bio", "phoneNumber", "email"]),
-    (value) => !!value
+      pick(req.body, ["photoURL", "displayName", "bio", "phoneNumber", "email"]),
+      (value) => !!value
   );
   await userRef.child(req.user!.uid).update(userUpdateData);
-  const user = await userRef.child(req.user!.uid).once('value');
+  const user = await userRef.child(req.user!.uid).once("value");
   res.json({ user });
 };
 

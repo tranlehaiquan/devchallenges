@@ -1,7 +1,6 @@
 import React from 'react';
 import Typo from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import Image from 'next/image';
 import Link from 'next/link';
 import firebaseClient, { providerGithub } from '../../src/firebaseClient';
 import { useRouter } from 'next/router';
@@ -70,12 +69,9 @@ const SocialIndentity: React.FC<Props> = ({
             key={social}
             className={classes.social}
             onClick={() => handleSocialClick(social)}>
-            <Image
+            <img
               src={`/${social}.svg`}
               alt={social}
-              width={42}
-              height={42}
-              objectFit="contain"
             />
           </button>
         ))}
