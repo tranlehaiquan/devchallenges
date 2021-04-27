@@ -1,11 +1,12 @@
 import { makeStyles, Button } from '@material-ui/core';
 import get from 'lodash/get';
-import omit from 'lodash/omit';
+import pick from 'lodash/pick';
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import TextField from '../CustomTextField';
 import { useSnackbar } from 'notistack';
+import UploadAvatar from 'components/UploadAvatar';
 
+import TextField from '../CustomTextField';
 import { useAuth } from '../../src/hooks/useAuth';
 import getValidationSchema from '../../src/yup';
 
@@ -23,7 +24,7 @@ const useStyles = makeStyles(({ spacing }) => ({
 
 const validationSchema = getValidationSchema([
   'email',
-  'photoURL',
+  // 'photoURL',
   'displayName',
 ]);
 
@@ -34,15 +35,16 @@ export default function Edit() {
   const snackbar = useSnackbar();
   const formik = useFormik({
     initialValues: {
-      photoURL: get(userInfo, 'photoURL', ''),
       displayName: get(userInfo, 'displayName', ''),
       bio: get(userInfo, 'bio', ''),
       phoneNumber: get(userInfo, 'phoneNumber', ''),
       email: get(userInfo, 'email', ''),
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       setLoading(true);
-      updateUserInfo(omit(values, 'password'));
+      await updateUserInfo(
+        pick(values, ['displayName', 'bio', 'phoneNumber', 'email'])
+      );
       snackbar.enqueueSnackbar('Update success', {
         preventDuplicate: true,
         variant: 'success',
@@ -55,21 +57,9 @@ export default function Edit() {
 
   return (
     <>
-      <TextField
-        variant="outlined"
-        placeholder="Photo url"
-        fullWidth
-        label="Photo url"
-        type="text"
-        name="photoURL"
-        value={formik.values.photoURL}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        helperText={formik.touched.photoURL && formik.errors.photoURL}
-        error={!!(formik.touched.photoURL && formik.errors.photoURL)}
-        disabled={loading}
-        className={classes.input}
-      />
+      <UploadAvatar src={get(userInfo, 'photoURL', '')} onChange={(image) => {
+        console.log(image);
+      }} />
 
       <TextField
         variant="outlined"

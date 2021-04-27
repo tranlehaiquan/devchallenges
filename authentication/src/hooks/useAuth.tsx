@@ -16,7 +16,7 @@ const AuthContext = createContext<{
   user: firebaseClient.User | null;
   mounted: boolean;
   signOut: () => Promise<void>;
-  updateUserInfo: (userInfo: User) => Promise<void>;
+  updateUserInfo: (userInfo:  Omit<User, 'photoURL'>) => Promise<void>;
   userInfo: User | undefined;
 }>({
   user: null,

@@ -1,0 +1,1 @@
+export const IMAGES_TYPES = ['image/x-png', 'image/jpeg', 'image/png'];

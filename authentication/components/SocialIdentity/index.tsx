@@ -51,7 +51,8 @@ const SocialIndentity: React.FC<Props> = ({
   const handleSocialClick = async (social: string) => {
     const provide = socialMapProvide[social];
     try {
-      await firebaseClient.auth().signInWithPopup(provide);
+      const result = await firebaseClient.auth().signInWithPopup(provide);
+      console.log(result);
       router.push('/');
     } catch (err) {
       onError(err);
