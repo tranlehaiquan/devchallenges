@@ -1,4 +1,5 @@
-import { makeStyles, Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import { useFormik } from 'formik';
@@ -29,7 +30,7 @@ const validationSchema = getValidationSchema([
 ]);
 
 export default function Edit() {
-  const { userInfo, updateUserInfo } = useAuth();
+  const { userInfo, updateUserInfo, updateUserAvatar, user } = useAuth();
   const [loading, setLoading] = useState(false);
   const classes = useStyles();
   const snackbar = useSnackbar();
@@ -57,9 +58,12 @@ export default function Edit() {
 
   return (
     <>
-      <UploadAvatar src={get(userInfo, 'photoURL', '')} onChange={(image) => {
-        console.log(image);
-      }} />
+      <UploadAvatar
+        src={get(userInfo, 'photoURL', '')}
+        onChange={(image) => {
+          updateUserAvatar(image, user.uid);
+        }}
+      />
 
       <TextField
         variant="outlined"

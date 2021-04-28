@@ -3,7 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Head from 'next/head';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import { Typography as Typo } from '@material-ui/core';
+import Typo from '@material-ui/core/Typography';
 
 import SocialIdentity from '../components/SocialIdentity';
 import TextField from '../components/TextField';
@@ -27,7 +27,7 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
   error: {
     marginBottom: spacing(1.5),
     color: palette.error.light,
-  }
+  },
 }));
 
 const desc =

@@ -3,7 +3,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
-import { TextFieldProps } from '@material-ui/core';
+import { TextFieldProps } from '@material-ui/core/TextField';
 import omit from 'lodash/omit';
 
 import CustomTextField from './CustomTextField';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextFieldProps } from '@material-ui/core';
+import { TextFieldProps } from '@material-ui/core/TextField';
 import { useField } from 'formik';
 
 import InputPassword from './InputPassword';

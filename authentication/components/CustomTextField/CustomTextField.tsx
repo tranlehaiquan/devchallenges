@@ -1,7 +1,6 @@
 import React from 'react';
 import makeStyle from '@material-ui/core/styles/makeStyles';
-import TextField from '@material-ui/core/TextField';
-import { TextFieldProps } from '@material-ui/core';
+import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import red from '@material-ui/core/colors/red';
 
 const useStyles = makeStyle(({ spacing }) => ({

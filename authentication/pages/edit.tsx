@@ -1,6 +1,9 @@
 import Head from 'next/head';
 import router from 'next/router';
-import { Container, makeStyles, Typography, Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import UserInfoForm from '../components/UserInfoForm';
 import Nav from '../components/Nav';

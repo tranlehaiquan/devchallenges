@@ -1,15 +1,13 @@
 import React, { useRef, useState } from 'react';
-import {
-  ClickAwayListener,
-  Container,
-  Grow,
-  makeStyles,
-  MenuItem,
-  MenuList,
-  Paper,
-  Popper,
-  Typography,
-} from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
+import MenuList from '@material-ui/core/MenuList';
+import MenuItem from '@material-ui/core/MenuItem';
+import Grow from '@material-ui/core/Grow';
+import Container from '@material-ui/core/Container';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import Link from 'next/link';
 
 import { useAuth } from '../../src/hooks/useAuth';
@@ -86,10 +84,7 @@ const Nav: React.FC<Props> = () => {
       <div className={classes.root}>
         <Link href="/">
           <a className={classes.avatarLink}>
-            <img
-              src="/devchallenges.svg"
-              alt="Dev author"
-            />
+            <img src="/devchallenges.svg" alt="Dev author" />
           </a>
         </Link>
 

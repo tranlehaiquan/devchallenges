@@ -1,4 +1,6 @@
-import { Button, makeStyles, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
 import React from 'react';
 import Link from 'next/link';

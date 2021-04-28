@@ -4,8 +4,6 @@ const axiosConfig = {
   baseURL: process.env.FUNCTIONS_URL,
 };
 
-console.log(axiosConfig);
-
 const axiosInstance = axios.create({
   baseURL: `${axiosConfig.baseURL}/api`
 });

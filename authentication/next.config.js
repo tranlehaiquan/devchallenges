@@ -2,6 +2,9 @@ const {
   PHASE_DEVELOPMENT_SERVER,
   PHASE_PRODUCTION_BUILD,
 } = require('next/constants');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 // This uses phases as outlined here: https://nextjs.org/docs/#custom-configuration
 module.exports = (phase) => {
@@ -26,7 +29,7 @@ module.exports = (phase) => {
   };
 
   // next.config.js object
-  return {
+  return withBundleAnalyzer({
     env,
-  };
+  });
 };

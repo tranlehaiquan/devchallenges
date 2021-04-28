@@ -9,14 +9,21 @@ import nookies from 'nookies';
 
 import { User } from '../types/User';
 import { setHeaderAuth, clearHeaderAuth } from '../apis/axios';
-import { getUserInfo, updateUserInfo } from '../apis/user';
+import {
+  getUserInfo,
+  updateUserInfo,
+  updateUserAvatar,
+  uploadUserAvatar,
+} from '../apis/user';
 import firebaseClient from '../firebaseClient';
+import compressImage from 'src/utils/imageCompressor';
 
 const AuthContext = createContext<{
   user: firebaseClient.User | null;
   mounted: boolean;
   signOut: () => Promise<void>;
-  updateUserInfo: (userInfo:  Omit<User, 'photoURL'>) => Promise<void>;
+  updateUserInfo: (userInfo: Omit<User, 'photoURL'>) => Promise<void>;
+  updateUserAvatar: (userPhotoURL: File, uid: string) => Promise<void>;
   userInfo: User | undefined;
 }>({
   user: null,
@@ -24,6 +31,7 @@ const AuthContext = createContext<{
   signOut: async () => {},
   userInfo: null,
   updateUserInfo: async () => {},
+  updateUserAvatar: async () => {},
 });
 
 export function AuthProvider({ children }: any) {
@@ -45,6 +53,16 @@ export function AuthProvider({ children }: any) {
     const newUserInfo = await updateUserInfo(userInfo);
     setUserInfo(newUserInfo.data.user);
   }, []);
+
+  const handleUpdateUserAvatar = useCallback(
+    async (photo: File, uid: string): Promise<void> => {
+      const imageCompressed = await compressImage(photo);
+      const userPhotoURL = await uploadUserAvatar(imageCompressed, uid);
+      const newUserInfo = await updateUserAvatar(userPhotoURL);
+      setUserInfo({ ...userInfo, photoURL: newUserInfo.data.user.photoURL });
+    },
+    []
+  );
 
   useEffect(() => {
     console.log('AuthProvider use effect 1');
@@ -95,6 +113,7 @@ export function AuthProvider({ children }: any) {
         signOut: signOutCache,
         userInfo,
         updateUserInfo: handleUpdateUserInfo,
+        updateUserAvatar: handleUpdateUserAvatar,
       }}>
       {children}
     </AuthContext.Provider>

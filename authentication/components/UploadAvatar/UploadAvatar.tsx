@@ -66,7 +66,6 @@ const UploadAvatar: React.FC<Props> = ({ src, id, onChange }) => {
     const { files } = e.target;
     const file = files[0];
     const isValidType = IMAGES_TYPES.includes(file.type);
-    console.log(file);
 
     if (!file || !isValidType) {
       enqueueSnackbar(
@@ -85,6 +84,7 @@ const UploadAvatar: React.FC<Props> = ({ src, id, onChange }) => {
 
   const handleSubmit = (image: File) => {
     onChange(image);
+    setOpen(false);
   }
 
   return (

@@ -1,5 +1,6 @@
 import firebaseClient from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/storage';
 import 'firebase/performance';
 
 const firebaseConfig = {

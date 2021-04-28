@@ -36,20 +36,6 @@ const DialogCrop: React.FC<Props> = ({ open, onClose, image, onSubmit }) => {
     imageRef.current = img;
   }, []);
 
-  useEffect(() => {
-    return () => {
-      if (imageURL) {
-        URL.revokeObjectURL(imageURL);
-        setImageURL('');
-        setCrop(defaultCrop);
-      }
-    };
-  }, [imageURL]);
-
-  const handleClose = () => {
-    onClose();
-  };
-
   const handleSubmit = async () => {
     const cropedImage = await getCroppedImg(
       imageRef.current,
@@ -58,13 +44,12 @@ const DialogCrop: React.FC<Props> = ({ open, onClose, image, onSubmit }) => {
     );
 
     onSubmit(cropedImage);
-    onClose();
   };
 
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
+      onClose={onClose}
       aria-labelledby="responsive-dialog-title">
       <DialogTitle id="responsive-dialog-title">
         Resize your avatar:

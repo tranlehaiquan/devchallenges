@@ -2,6 +2,8 @@
 import { Router, Request, Response } from "express";
 import pickBy from "lodash/pickBy";
 import pick from "lodash/pick";
+import get from "lodash/get";
+
 import { firebaseAuthentication } from "../middleware/firebase-authentication";
 import { userRef } from "../firebaseAdmin";
 
@@ -17,7 +19,7 @@ export const updateUser = async (
     res: Response
 ): Promise<void> => {
   const userUpdateData = pickBy(
-      pick(req.body, ["photoURL", "displayName", "bio", "phoneNumber", "email"]),
+      pick(req.body, ["displayName", "bio", "phoneNumber", "email"]),
       (value) => !!value
   );
   await userRef.child(req.user!.uid).update(userUpdateData);
@@ -25,8 +27,26 @@ export const updateUser = async (
   res.json({ user });
 };
 
+export const updateUserAvatar = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+  const photoURL = get(req.body, "photoURL");
+  if (!photoURL) {
+    res.json({ error: "Please input url" });
+    return;
+  }
+
+  await userRef.child(req.user!.uid).update({
+    photoURL,
+  });
+  const user = await userRef.child(req.user!.uid).once("value");
+  res.json({ user });
+};
+
 router.use(firebaseAuthentication);
 router.get("/", getUser);
 router.post("/", updateUser);
+router.post("/photoURL", updateUserAvatar);
 
 export default router;

@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import router from 'next/router';
-import { Container, makeStyles, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import Nav from '../components/Nav';
 import { useAuth } from '../src/hooks/useAuth';
@@ -10,8 +12,8 @@ const useStyles = makeStyles(({ spacing }) => ({
     paddingBottom: spacing(3),
   },
   title: {
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 }));
 
 export default function GroupChat() {
@@ -31,7 +33,9 @@ export default function GroupChat() {
       <div className={classes.root}>
         <Container>
           <Nav />
-          <Typography className={classes.title}>🍕🍕🍕 Group chat 🍕🍕🍕</Typography>
+          <Typography className={classes.title}>
+            🍕🍕🍕 Group chat 🍕🍕🍕
+          </Typography>
         </Container>
       </div>
     </>

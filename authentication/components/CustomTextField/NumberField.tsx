@@ -1,7 +1,7 @@
 import React from 'react';
 import NumberFormat, { NumberFormatProps } from 'react-number-format';
 import CustomTextField from './CustomTextField';
-import { TextFieldProps } from '@material-ui/core';
+import { TextFieldProps } from '@material-ui/core/TextField';
 
 interface NumberFormatCustomProps {
   inputRef: (instance: NumberFormat | null) => void;
