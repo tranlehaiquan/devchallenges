@@ -60,17 +60,24 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
   rootLoading: {
     textAlign: 'center',
     padding: spacing(2),
-  }
+  },
+  userAvatar: {
+    display: 'block',
+    maxWidth: '100%',
+  },
 }));
 
 const UserInfo: React.FC<Props> = () => {
   const { userInfo } = useAuth();
   const classes = useStyles();
 
-  if (!userInfo) return <div  className={classes.rootLoading}>
-    <CircularProgress />
-    <Typography>Loading</Typography>
-  </div>;
+  if (!userInfo)
+    return (
+      <div className={classes.rootLoading}>
+        <CircularProgress />
+        <Typography>Loading</Typography>
+      </div>
+    );
 
   return (
     <div className={classes.root}>
@@ -93,7 +100,11 @@ const UserInfo: React.FC<Props> = () => {
           <Typography>Photo</Typography>
         </div>
         <div>
-          <img src={userInfo.photoURL} alt="user avatar" />
+          <img
+            src={userInfo.photoURL}
+            className={classes.userAvatar}
+            alt="user avatar"
+          />
         </div>
       </div>
 
