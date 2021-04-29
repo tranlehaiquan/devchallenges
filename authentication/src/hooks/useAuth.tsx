@@ -59,7 +59,7 @@ export function AuthProvider({ children }: any) {
       const imageCompressed = await compressImage(photo);
       const userPhotoURL = await uploadUserAvatar(imageCompressed, uid);
       const newUserInfo = await updateUserAvatar(userPhotoURL);
-      setUserInfo({ ...userInfo, photoURL: newUserInfo.data.user.photoURL });
+      setUserInfo((userInfo) => ({ ...userInfo, photoURL: newUserInfo.data.user.photoURL }));
     },
     []
   );

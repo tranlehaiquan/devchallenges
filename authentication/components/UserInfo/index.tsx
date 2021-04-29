@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
 import React from 'react';
 import Link from 'next/link';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import { useAuth } from '../../src/hooks/useAuth';
 
 interface Props {
@@ -55,13 +57,20 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
       flex: '0 0 120px',
     },
   },
+  rootLoading: {
+    textAlign: 'center',
+    padding: spacing(2),
+  }
 }));
 
 const UserInfo: React.FC<Props> = () => {
   const { userInfo } = useAuth();
   const classes = useStyles();
 
-  if (!userInfo) return null;
+  if (!userInfo) return <div  className={classes.rootLoading}>
+    <CircularProgress />
+    <Typography>Loading</Typography>
+  </div>;
 
   return (
     <div className={classes.root}>

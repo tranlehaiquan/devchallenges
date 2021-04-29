@@ -19,7 +19,6 @@
     "@types/yup": "^0.29.11",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
-    "clx": "^1.0.0",
     "compressorjs": "^1.0.7",
     "cross-env": "^7.0.3",
     "firebase": "^8.3.1",
