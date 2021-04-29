@@ -80,10 +80,23 @@ https://nextjs.org/docs/authentication#authentication-patterns
 - Upload image
 
 ## Deploy
+Please install firebase cli first:
+
+```
+npm i -g firebase-tools@latest
+firebase login:ci
+```
 
 ```
 npm i
 npm run build
 npm run export
+firebase target:apply hosting authentication authentication-devchallenge
 firebase deploy --only hosting
+```
+
+Explain:
+
+```
+firebase target:apply hosting <targetID> <siteID>
 ```

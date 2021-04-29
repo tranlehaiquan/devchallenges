@@ -1,5 +1,6 @@
 {
-  "hosting": {
+  "hosting": [{
+    "target": "authentication",
     "public": "out",
     "ignore": [
       "firebase.json",
@@ -7,5 +8,5 @@
       "**/node_modules/**"
     ],
     "cleanUrls": true
-  }
+  }]
 }

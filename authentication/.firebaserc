@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "devchallenge-quan"
+  },
+  "targets": {
+    "devchallenge-quan": {
+      "hosting": {
+        "authentication": [
+          "authentication-devchallenge"
+        ]
+      }
+    }
   }
 }
